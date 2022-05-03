@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'authentication.apps.AuthenticationConfig',
     'corsheaders',
+    'projects',
+    'tickets',
 ]
 
 MIDDLEWARE = [
