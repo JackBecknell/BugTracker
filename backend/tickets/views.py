@@ -10,15 +10,15 @@ from .serializers import TicketSerializer
 from authentication.models import User
 
 
-class ProjectList(APIView, AllowAny):
+class TicketList(APIView, AllowAny):
     #Returns a list of all projects
     def get(self, request):
         tickets = Ticket.objects.all()
         serializer = TicketSerializer(tickets, many=True)
         return Response(serializer.data)
 
-        
-class ProjectDetail(APIView, AllowAny):
+
+class TicketDetail(APIView, AllowAny):
 
     def get(self, request, ticket_id):
         ticket = Ticket.objects.get(id = ticket_id)
