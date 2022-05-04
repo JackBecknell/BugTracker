@@ -11,19 +11,13 @@ from .serializers import ProjectSerializer
 from authentication.models import User
 
 
-class ProjectList(APIView, AllowAny):
+class ProjectAuthList(APIView, IsAuthenticated):
 
     #Returns a list of all projects
     def get(self, request):
         projects = Project.objects.all()
         serializer = ProjectSerializer(projects, many=True)
         return Response(serializer.data)
-class ProjectDetail(APIView, AllowAny):
-
-    def get(self, request, project_id):
-        projects = Project.objects.filter(id = project_id)
-        serializer = ProjectSerializer(projects, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
 
 class ProjectAuthDetail(APIView, IsAuthenticated):
 
@@ -34,6 +28,11 @@ class ProjectAuthDetail(APIView, IsAuthenticated):
         except Project.DoesNotExist:
             raise Http404
 
+    def get(self, request, project_id):
+        project = self.get_object(project_id)
+        serializer = ProjectSerializer(project)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
     #function takes user input data and creates a project if it is valid.       
     def post(self, request):
         serializer = ProjectSerializer(data=request.data)
@@ -42,13 +41,13 @@ class ProjectAuthDetail(APIView, IsAuthenticated):
         return Response(serializer.data, status = status.HTTP_201_CREATED)
 
 
-    def delete(self, request , pk):
-        project = self.get_object(pk)
+    def delete(self, request , project_id):
+        project = self.get_object(project_id)
         project.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-    def put(self, request, pk):
-        project = self.get_object(pk)
+    def put(self, request, project_id):
+        project = self.get_object(project_id)
         serializer = ProjectSerializer(project, data=request.data)
         if serializer.is_valid():
             serializer.save()
