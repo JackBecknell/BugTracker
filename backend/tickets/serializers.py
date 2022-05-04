@@ -19,6 +19,7 @@ class TicketSerializer(serializers.ModelSerializer):
         'is_completed', 'date_time_created', 'date_time_resolved',
         'project', 'project_id', 'author', 'author_id', 'priority', 
         'priority_id', 'type', 'type_id']
+        
     project_id = serializers.IntegerField(write_only=True)
     author_id = serializers.IntegerField(write_only=True)
     priority_id = serializers.IntegerField(write_only=True)
