@@ -9,24 +9,29 @@ const NavBar = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="Side-NavBar">
-      <ul>
-        <li>
-          <button className="unNamed" onClick={() => navigate("/")}>
-            Dashboard
-          </button>
-        </li>
-        <li>
-          <button className="unNamed" onClick={() => navigate("/ticketsPage")}>
-            Tickets
-          </button>
-        </li>
-        <li>
-          <button className="unNamed" onClick={() => navigate("/adminPage")}>
-            Admin
-          </button>
-        </li>
-      </ul>
+    <div className="NavBar-container">
+      <div className="Side-NavBar">
+        <ul>
+          <li>
+            <button className="unNamed" onClick={() => navigate("/")}>
+              Dashboard
+            </button>
+          </li>
+          <li>
+            <button
+              className="unNamed"
+              onClick={() => navigate("/ticketsPage")}
+            >
+              Tickets
+            </button>
+          </li>
+          <li>
+            <button className="unNamed" onClick={() => navigate("/adminPage")}>
+              Admin
+            </button>
+          </li>
+        </ul>
+      </div>
     </div>
   );
 };

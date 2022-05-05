@@ -10,36 +10,50 @@ import NavBar from "../../components/NavBar/NavBar";
 const DashBoard = () => {
   // The "user" value from this Hook contains the decoded logged in user information (username, first name, id)
   // The "token" value is the JWT token that you will send in the header of any request requiring authentication
-  //TODO: Add an AddCars Page to add a car for a logged in user's garage
   const [user, token] = useAuth();
-  const [cars, setCars] = useState([]);
+  const [projects, setProjects] = useState([]);
+  const [clickedProject, setClickedProject] = useState(0);
   const navigate = useNavigate();
 
   //KEEPING FOR REFERENCE.
-  //useEffect(() => {
-  //   const fetchCars = async () => {
-  //     try {
-  //       let response = await axios.get("http://127.0.0.1:8000/api/cars/", {
-  //         headers: {
-  //           Authorization: "Bearer " + token,
-  //         },
-  //       });
-  //       setCars(response.data);
-  //     } catch (error) {
-  //       console.log(error.message);
-  //     }
-  //   };
-  //   fetchCars();
-  // }, [token]);
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        let response = await axios.get("http://127.0.0.1:8000/api/projects/", {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        });
+        setProjects(response.data);
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+    fetchProjects();
+  }, [token]);
 
   return (
     <div className="nav-projects-container">
       <NavBar />
-      <div>
-        <h1>Home Page for {user.username}!</h1>
-        <button className="unNamed" onClick={() => navigate("/projectPage")}>
-          ToProjectPage
-        </button>
+      <div className="projects-container">
+        <div className="projects-head">
+          <h3>PROJECTS</h3>
+        </div>
+        {projects &&
+          projects.map((project, i) => (
+            <Link
+              onClick={() => setClickedProject(project.id)}
+              key={i}
+              to={`/projectPage/${project.id}`}
+              style={{ textDecoration: "none", color: "black" }}
+            >
+              <div className="project-link">
+                <p>{project.title}</p>
+                <p>{project.description}</p>
+                <p>{project.project_author.username}</p>
+              </div>
+            </Link>
+          ))}
       </div>
     </div>
   );

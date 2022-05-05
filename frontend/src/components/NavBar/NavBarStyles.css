@@ -5,7 +5,10 @@
   padding-left: 0;
   margin-left: 0%;
   background-color: rgb(131, 131, 131);
-  height: max-content;
+  min-height: 100vh;
+  height: 100%;
+  margin-bottom: -15000px; /* allows navbar to stay full height of page */
+  padding-bottom: 15000px;
 }
 
 .Side-NavBar ul {
@@ -14,4 +17,9 @@
 
 .Side-NavBar button {
   min-width: 10rem;
+}
+
+.NavBar-container {
+  overflow: hidden;
+  width: fit-content;
 }

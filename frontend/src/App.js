@@ -19,7 +19,7 @@ import PrivateRoute from "./utils/PrivateRoute";
 
 function App() {
   return (
-    <div>
+    <div className="page">
       <Header />
       <Routes>
         <Route
@@ -31,7 +31,7 @@ function App() {
           }
         />
         <Route
-          path="/projectPage"
+          path="/projectPage/:id"
           element={
             <PrivateRoute>
               <ProjectPage />
