@@ -6,6 +6,9 @@ import "./App.css";
 import DashBoard from "./pages/DashBoard/DashBoard";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import RegisterPage from "./pages/RegisterPage/RegisterPage";
+import ProjectPage from "./pages/ProjectPage/Project";
+import TicketsPage from "./pages/TicketsPage/Tickets";
+import AdminPage from "./pages/AdminPage/Admin";
 
 // Component Imports
 import Header from "./components/Header/Header";
@@ -24,6 +27,30 @@ function App() {
           element={
             <PrivateRoute>
               <DashBoard />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/projectPage"
+          element={
+            <PrivateRoute>
+              <ProjectPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/ticketsPage"
+          element={
+            <PrivateRoute>
+              <TicketsPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/adminPage"
+          element={
+            <PrivateRoute>
+              <AdminPage />
             </PrivateRoute>
           }
         />

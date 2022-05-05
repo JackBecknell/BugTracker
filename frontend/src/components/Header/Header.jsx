@@ -9,7 +9,7 @@ const Header = () => {
   const navigate = useNavigate();
   return (
     <div className="Header">
-      <ul>
+      <ul className="ul">
         <li className="brand">
           <Link to="/" style={{ textDecoration: "none", color: "white" }}>
             <b>React/Django JWT</b>
@@ -17,9 +17,13 @@ const Header = () => {
         </li>
         <li>
           {user ? (
-            <button onClick={logoutUser}>Logout</button>
+            <button className="dfaultButton" onClick={logoutUser}>
+              Logout
+            </button>
           ) : (
-            <button onClick={() => navigate("/login")}>Login</button>
+            <button className="dfaultButton" onClick={() => navigate("/login")}>
+              Login
+            </button>
           )}
         </li>
       </ul>

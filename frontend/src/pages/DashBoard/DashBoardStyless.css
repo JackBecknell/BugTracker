@@ -1,0 +1,4 @@
+.nav-projects-container {
+  display: flex;
+  flex-direction: row;
+}

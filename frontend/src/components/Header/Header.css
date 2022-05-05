@@ -1,4 +1,4 @@
-ul {
+.ul {
   display: flex;
   justify-content: space-between;
   list-style-type: none;

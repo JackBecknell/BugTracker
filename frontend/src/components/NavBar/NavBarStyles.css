@@ -1,0 +1,17 @@
+.Side-NavBar {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  padding-left: 0;
+  margin-left: 0%;
+  background-color: rgb(131, 131, 131);
+  height: max-content;
+}
+
+.Side-NavBar ul {
+  list-style-type: none;
+}
+
+.Side-NavBar button {
+  min-width: 10rem;
+}

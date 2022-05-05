@@ -5,22 +5,26 @@ import AuthContext from "../../context/AuthContext";
 import "./NavBarStyles.css";
 
 const NavBar = () => {
-  const { logoutUser, user } = useContext(AuthContext);
+  //   const { logoutUser, user } = useContext(AuthContext);
   const navigate = useNavigate();
+
   return (
-    <div className="NavBar">
+    <div className="Side-NavBar">
       <ul>
-        <li className="brand">
-          <Link to="/" style={{ textDecoration: "none", color: "white" }}>
-            <b>React/Django JWT</b>
-          </Link>
+        <li>
+          <button className="unNamed" onClick={() => navigate("/")}>
+            Dashboard
+          </button>
         </li>
         <li>
-          {user ? (
-            <button onClick={logoutUser}>Logout</button>
-          ) : (
-            <button onClick={() => navigate("/login")}>Login</button>
-          )}
+          <button className="unNamed" onClick={() => navigate("/ticketsPage")}>
+            Tickets
+          </button>
+        </li>
+        <li>
+          <button className="unNamed" onClick={() => navigate("/adminPage")}>
+            Admin
+          </button>
         </li>
       </ul>
     </div>
