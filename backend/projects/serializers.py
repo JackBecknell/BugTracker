@@ -17,3 +17,4 @@ class ProjectSerializer(serializers.ModelSerializer):
         depth = 1
     project_author_id = serializers.IntegerField(write_only=True)
 
+ 
