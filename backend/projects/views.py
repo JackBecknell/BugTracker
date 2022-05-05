@@ -52,3 +52,19 @@ class ProjectAuthDetail(APIView, IsAuthenticated):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+class ProjectAuthAddTeam(APIView, IsAuthenticated):
+    def put(self, request, project_id):
+        project = Project.objects.get(id=project_id)
+        for i in request.data["user_ids"]:
+            project.team.add(User.objects.get(id=i))
+        serializer = ProjectSerializer(project)
+        return Response(serializer.data)
+
+class ProjectAuthRemovTeam(APIView, IsAuthenticated):
+    def put(self, request, project_id):
+        project = Project.objects.get(id=project_id)
+        for i in request.data["user_ids"]:
+            project.team.remove(User.objects.get(id=i))
+        serializer = ProjectSerializer(project)
+        return Response(serializer.data)

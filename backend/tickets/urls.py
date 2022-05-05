@@ -5,4 +5,6 @@ urlpatterns = [
     path('', views.TicketAuthList.as_view()),
     path('<int:ticket_id>/', views.TicketAuthDetail.as_view()),
     path('post/', views.TicketAuthDetail.as_view()),
+    path('assign/<int:ticket_id>/', views.TicketAuthAddAssigned.as_view()),
+    path('unassign/<int:ticket_id>/', views.TicketAuthRemovAssigned.as_view())
 ]

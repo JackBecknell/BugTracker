@@ -31,8 +31,7 @@ class TicketAuthDetail(APIView, IsAuthenticated):
         ticket = self.get_object(ticket_id)
         serializer = TicketSerializer(ticket)
         return Response(serializer.data, status=status.HTTP_200_OK)
-    
-    #function takes user input data and creates a ticket if it is valid.       
+        
     def post(self, request):
         serializer = TicketSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -51,3 +50,20 @@ class TicketAuthDetail(APIView, IsAuthenticated):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class TicketAuthAddAssigned(APIView, IsAuthenticated):
+    def put(self, request, ticket_id):
+        ticket = Ticket.objects.get(id=ticket_id)
+        for i in request.data["user_ids"]:
+            ticket.assigned_to.add(User.objects.get(id=i))
+        serializer = TicketSerializer(ticket)
+        return Response(serializer.data)        
+        
+class TicketAuthRemovAssigned(APIView, IsAuthenticated):
+    def put(self, request, ticket_id):
+        ticket = Ticket.objects.get(id=ticket_id)
+        for i in request.data["user_ids"]:
+            ticket.assigned_to.remove(User.objects.get(id=i))
+        serializer = TicketSerializer(ticket)
+        return Response(serializer.data)
+        
