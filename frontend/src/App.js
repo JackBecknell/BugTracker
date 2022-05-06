@@ -9,7 +9,7 @@ import RegisterPage from "./pages/RegisterPage/RegisterPage";
 import ProjectPage from "./pages/ProjectPage/Project";
 import TicketsPage from "./pages/TicketsPage/Tickets";
 import AdminPage from "./pages/AdminPage/Admin";
-import SelTicketPage from "./pages/SelTicketPage/SelTicket";
+import InspectTicketPage from "./pages/InspectTicket/InspectTicket";
 
 // Component Imports
 import Header from "./components/Header/Header";
@@ -40,18 +40,10 @@ function App() {
           }
         />
         <Route
-          path="c"
+          path="/inspectTicket/:id"
           element={
             <PrivateRoute>
-              <SelTicketPage />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/ticketsPage"
-          element={
-            <PrivateRoute>
-              <TicketsPage />
+              <InspectTicketPage />
             </PrivateRoute>
           }
         />
@@ -72,3 +64,4 @@ function App() {
 }
 
 export default App;
+// path="/selTicketsPage/:id"

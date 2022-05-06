@@ -8,8 +8,6 @@ import NavBar from "../../components/NavBar/NavBar";
 import "./ProjectStyles.css";
 
 const ProjectPage = (props) => {
-  //currently un-used VVV
-  const navigate = useNavigate();
   //token is used for axios request
   const [user, token] = useAuth();
   //
@@ -73,7 +71,7 @@ const ProjectPage = (props) => {
           {tickets &&
             tickets.map((ticket, i) => {
               let completeStatus;
-              if (ticket.is_completed != true) {
+              if (ticket.is_completed !== true) {
                 completeStatus = <td>Incomplete</td>;
               } else {
                 completeStatus = <td>Complete</td>;
@@ -85,8 +83,14 @@ const ProjectPage = (props) => {
                   <td>{ticket.priority.title}</td>
                   <td>{ticket.date_time_created}</td>
                   <td>{ticket.author.username}</td>
-                  <Link key={i} to={`/ticketPage/${ticket.id}`}>
-                    <button className="ticket-view-btn">VIEW</button>
+                  <Link
+                    key={i}
+                    to={`/inspectTicket/${ticket.id}`}
+                    style={{ textDecoration: "none", color: "black" }}
+                  >
+                    <div className="ticket-view-btn">
+                      <h3>VIEW</h3>
+                    </div>
                   </Link>
                 </tr>
               );
@@ -107,13 +111,13 @@ const ProjectPage = (props) => {
       <NavBar />
       <div className="project-container">
         <div className="project-head">
-          {project && (
+          {project.id && (
             <div>
               <h3>PROJECT : {project.title} </h3>
             </div>
           )}
         </div>
-        {project && (
+        {project.id && (
           <div>
             <div className="project-info-container">
               <p>author</p>
