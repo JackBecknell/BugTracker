@@ -14,7 +14,6 @@ const DashBoard = () => {
   const [projects, setProjects] = useState([]);
   const navigate = useNavigate();
 
-  //KEEPING FOR REFERENCE.
   useEffect(() => {
     const fetchProjects = async () => {
       try {

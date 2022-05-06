@@ -36,4 +36,6 @@
   background-color: rgb(139, 139, 139);
   margin: 0.4rem;
   border-radius: 10px;
+  padding-right: 1%;
+  padding-left: 1%;
 }

@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import APIView
 from rest_framework.permissions import IsAuthenticated
 
-from projects.models import Project
+from .models import Project
 from .serializers import ProjectSerializer
 from authentication.models import User
 

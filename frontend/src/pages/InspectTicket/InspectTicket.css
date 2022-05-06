@@ -1,0 +1,35 @@
+.nav-ticketAndComment-container {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  margin: 0%;
+}
+.ticket-head {
+  display: table-cell;
+  min-width: fit-content;
+  height: fit-content;
+  background-color: rgb(0, 0, 0);
+  color: rgb(177, 177, 177);
+  padding: 6px;
+  margin-top: 0%;
+  text-align: center;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.ticket-head h3 {
+  margin: 0%;
+}
+
+.ticket-comments-container {
+  margin-bottom: auto;
+  margin-left: auto;
+  margin-right: auto;
+  width: 70%;
+}
+
+.ticket-info-container {
+  background-color: rgb(131, 131, 131);
+  padding: 1rem;
+  border-radius: 10px;
+}

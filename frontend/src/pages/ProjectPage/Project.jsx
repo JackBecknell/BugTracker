@@ -1,9 +1,7 @@
-import React from "react";
-import { useEffect, useState } from "react";
+import { React, useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useParams } from "react-router-dom";
 import axios from "axios";
-import { useParams } from "react-router-dom";
 import NavBar from "../../components/NavBar/NavBar";
 import "./ProjectStyles.css";
 
