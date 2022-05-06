@@ -57,6 +57,7 @@ class TicketAuthListByProjectId(APIView, IsAuthenticated):
         tickets = Ticket.objects.filter(project_id=project_id)
         serializer = TicketSerializer(tickets, many=True)
         return Response(serializer.data)
+
 class TicketAuthAddAssigned(APIView, IsAuthenticated):
     def put(self, request, ticket_id):
         ticket = Ticket.objects.get(id=ticket_id)

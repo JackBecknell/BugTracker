@@ -10,7 +10,19 @@ from .serializers import CommentSerializer
 # Create your views here.
 class CommentAuthList(APIView, IsAuthenticated):
 
-    def get(self, request):
-        comments = Comments.objects.all()
+    def get(self, request, ticket_id):
+        comments = Comments.objects.filter(ticket_id=ticket_id)
         serializer = CommentSerializer(comments, many=True)
         return Response(serializer.data)
+
+class CommentAuthDetail(APIView, IsAuthenticated):
+    def post(self, request):
+        serializer = CommentSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data, status = status.HTTP_201_CREATED)
+    
+    def delete(self, request , comment_id):
+        comment = Comments.objects.get(id=comment_id)
+        comment.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
