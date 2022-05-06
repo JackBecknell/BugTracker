@@ -9,6 +9,7 @@ import RegisterPage from "./pages/RegisterPage/RegisterPage";
 import ProjectPage from "./pages/ProjectPage/Project";
 import TicketsPage from "./pages/TicketsPage/Tickets";
 import AdminPage from "./pages/AdminPage/Admin";
+import SelTicketPage from "./pages/SelTicketPage/SelTicket";
 
 // Component Imports
 import Header from "./components/Header/Header";
@@ -35,6 +36,14 @@ function App() {
           element={
             <PrivateRoute>
               <ProjectPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="c"
+          element={
+            <PrivateRoute>
+              <SelTicketPage />
             </PrivateRoute>
           }
         />

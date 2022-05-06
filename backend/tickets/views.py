@@ -51,6 +51,12 @@ class TicketAuthDetail(APIView, IsAuthenticated):
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
+class TicketAuthListByProjectId(APIView, IsAuthenticated):
+    def get(self, request, project_id):
+        tickets = Ticket.objects.filter(project_id=project_id)
+        serializer = TicketSerializer(tickets, many=True)
+        return Response(serializer.data)
 class TicketAuthAddAssigned(APIView, IsAuthenticated):
     def put(self, request, ticket_id):
         ticket = Ticket.objects.get(id=ticket_id)

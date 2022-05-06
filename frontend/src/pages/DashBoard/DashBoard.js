@@ -12,7 +12,6 @@ const DashBoard = () => {
   // The "token" value is the JWT token that you will send in the header of any request requiring authentication
   const [user, token] = useAuth();
   const [projects, setProjects] = useState([]);
-  const [clickedProject, setClickedProject] = useState(0);
   const navigate = useNavigate();
 
   //KEEPING FOR REFERENCE.
@@ -42,7 +41,6 @@ const DashBoard = () => {
         {projects &&
           projects.map((project, i) => (
             <Link
-              onClick={() => setClickedProject(project.id)}
               key={i}
               to={`/projectPage/${project.id}`}
               style={{ textDecoration: "none", color: "black" }}

@@ -2,6 +2,7 @@ from django.db import models
 from authentication.models import User
 from projects.models import Project
 from django.utils.timezone import now
+import datetime
 # Create your models here.
 
 
@@ -17,7 +18,7 @@ class Ticket(models.Model):
     title = models.CharField(max_length=40)
     description = models.TextField(max_length=1250)
     is_completed = models.BooleanField(default=False)
-    date_time_created = models.DateTimeField(default=now, editable=False)
+    date_time_created = models.DateField(default=datetime.date.today, editable=False)
     date_time_resolved = models.DateTimeField(blank=True, null=True)
     priority = models.ForeignKey(Priority,  null=True , on_delete=models.SET_NULL)
     type = models.ForeignKey(Type,  null=True ,on_delete=models.SET_NULL)
