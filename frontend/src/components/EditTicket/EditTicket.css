@@ -1,0 +1,20 @@
+/* Below are styles for edit button */
+.editbtn-container button {
+  background-color: rgb(255, 241, 51);
+  border-style: none;
+  height: 3rem;
+  width: 3rem;
+  border-radius: 100%;
+  float: right;
+  font-weight: bold;
+  transition: 0.9s;
+}
+
+.editbtn-container :hover {
+  border-style: solid;
+  border-width: 1px;
+  border-color: black;
+  letter-spacing: 0.1rem;
+}
+
+/* Below are styles for Edit Modal */

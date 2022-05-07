@@ -3,6 +3,7 @@ import useAuth from "../../hooks/useAuth";
 import { useNavigate, Link, useParams } from "react-router-dom";
 import axios from "axios";
 import NavBar from "../../components/NavBar/NavBar";
+import EditTicket from "../../components/EditTicket/EditTicket";
 import "./ProjectStyles.css";
 
 const ProjectPage = (props) => {

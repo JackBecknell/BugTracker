@@ -31,5 +31,24 @@
 .ticket-info-container {
   background-color: rgb(131, 131, 131);
   padding: 1rem;
-  border-radius: 10px;
+  border-radius: 25px;
+}
+
+.comments-container {
+  margin: 0.5rem;
+  background-color: rgb(83, 83, 83);
+  width: 50%;
+}
+
+.comment-box {
+  margin: 0.5rem;
+  margin-top: 0.5rem;
+  padding: 0.2rem 0.5rem;
+  background-color: rgb(219, 219, 219);
+  border-radius: 5px;
+}
+
+.view-comments-btn {
+  margin-bottom: 2rem;
+  margin-top: 2rem;
 }
