@@ -4,6 +4,7 @@ import useAuth from "../../hooks/useAuth";
 import { useNavigate, Link, useParams } from "react-router-dom";
 import NavBar from "../../components/NavBar/NavBar";
 import EditTicket from "../../components/EditTicket/EditTicket";
+import DeleteTicket from "../../components/DeleteTicket/DeleteTicket";
 import "./InspectTicket.css";
 import axios from "axios";
 
@@ -73,7 +74,7 @@ const InspectTicketPage = (props) => {
 
   //conditional rendering for bool field in ticket.
   let status;
-  if (ticket.is_completed == false) {
+  if (ticket.is_completed === false) {
     status = "Incomplete";
   } else {
     status = "Completed";
@@ -165,8 +166,19 @@ const InspectTicketPage = (props) => {
                 <h3>TICKET : {ticket.title}</h3>
               </div>
               {user.id == ticket.author.id ? (
-                <div>
-                  <EditTicket ticket={ticket} reloadTicket={setRequestReload} />
+                <div className="edit-delete-container">
+                  <div>
+                    <EditTicket
+                      ticket={ticket}
+                      reloadTicket={setRequestReload}
+                    />
+                  </div>
+                  <div className="del-Container">
+                    <DeleteTicket
+                      ticket={ticket}
+                      reloadTicket={setRequestReload}
+                    />
+                  </div>
                 </div>
               ) : (
                 <div></div>
@@ -197,7 +209,7 @@ const InspectTicketPage = (props) => {
               </button>
               <div>{postCommentForm}</div>
             </div>
-            <div>
+            <div className="viewComments-container">
               <button
                 onClick={() => setDisplayComments(!displayComments)}
                 className="view-comments-btn"

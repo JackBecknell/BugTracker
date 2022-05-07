@@ -49,6 +49,19 @@
 }
 
 .view-comments-btn {
-  margin-bottom: 2rem;
   margin-top: 2rem;
+}
+
+.edit-delete-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.del-Container {
+  margin-left: 5%;
+  margin-right: 3rem;
+}
+
+.viewComments-container {
+  margin-bottom: 5rem;
 }

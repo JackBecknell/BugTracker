@@ -7,12 +7,14 @@ const EditTicket = (props) => {
   const [modalStatus, setModalStatus] = useState(false);
 
   return (
-    <div className="editbtn-container">
-      <button onClick={() => setModalStatus(true)}>EDIT</button>
+    <div>
+      <div className="editbtn-container">
+        <button onClick={() => setModalStatus(true)}>EDIT</button>
+      </div>
       {modalStatus && (
         <EditModal
           ticket={props.ticket}
-          closeModal={setModalStatus}
+          setModalStatus={setModalStatus}
           reloadTicket={props.reloadTicket}
         />
       )}

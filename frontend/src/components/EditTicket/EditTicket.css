@@ -1,20 +1,23 @@
 /* Below are styles for edit button */
 .editbtn-container button {
-  background-color: rgb(255, 241, 51);
+  background-color: rgb(51, 105, 255);
   border-style: none;
   height: 3rem;
-  width: 3rem;
-  border-radius: 100%;
+  width: 5rem;
+  padding: 3px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 0%;
+  border-bottom-left-radius: 0%;
   float: right;
   font-weight: bold;
   transition: 0.9s;
 }
 
 .editbtn-container :hover {
-  border-style: solid;
-  border-width: 1px;
-  border-color: black;
   letter-spacing: 0.1rem;
 }
 
-/* Below are styles for Edit Modal */
+.editbtn-container button {
+  height: fit-content;
+}
