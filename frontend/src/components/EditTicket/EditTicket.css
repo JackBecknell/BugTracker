@@ -16,6 +16,7 @@
 
 .editbtn-container :hover {
   letter-spacing: 0.1rem;
+  cursor: pointer;
 }
 
 .editbtn-container button {

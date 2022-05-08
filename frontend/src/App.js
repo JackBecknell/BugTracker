@@ -20,7 +20,7 @@ import PrivateRoute from "./utils/PrivateRoute";
 
 function App() {
   //this useState function is called when user click on a project setting proj pk.
-  //then we pass it to InspectTicket and use it to navigate back to project page should user delete project.
+  //Required for ticket deletion and creation functionality
   const [projectId, setProjectId] = useState(0);
 
   return (

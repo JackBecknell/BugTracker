@@ -1,25 +1,18 @@
 import { React, useEffect, useState } from "react";
 import axios from "axios";
 import useAuth from "../../hooks/useAuth";
-import "./EditModal.css";
+import "./AddTicketStyles.css";
 
-function EditModel(props) {
-  //values for ticket
-  const [ticket, setTicket] = useState(props.ticket);
+function AddTicketModel(props) {
+  //NEED PROJECT ID IMPORT
+
   const [user, token] = useAuth();
   //Single values
-  const [ticketTitle, setTicketTitle] = useState(ticket.title);
-  const [ticketDescrip, setTicketDescrip] = useState(ticket.description);
-  const [isCompleted, setIsCompleted] = useState(ticket.is_completed);
+  const [ticketTitle, setTicketTitle] = useState("");
+  const [ticketDescrip, setTicketDescrip] = useState("");
   //Double values
-  const [ticketType, setTicketType] = useState([
-    ticket.type.id,
-    ticket.type.title,
-  ]);
-  const [ticketPriority, setTicketPriority] = useState([
-    ticket.priority.id,
-    ticket.priority.title,
-  ]);
+  const [ticketType, setTicketType] = useState([null, "SELECT"]);
+  const [ticketPriority, setTicketPriority] = useState([null, "SELECT"]);
 
   //Data in for priorities and types is hardcoded as these values will never change in database.
   const ticketFkOptionsDict = {
@@ -40,18 +33,14 @@ function EditModel(props) {
     ],
   };
 
-  const putTicket = async (updatedTicket) => {
+  const postTicket = async (newTicket) => {
     try {
-      await axios.put(
-        `http://127.0.0.1:8000/api/tickets/${props.ticket.id}/`,
-        updatedTicket,
-        {
-          headers: {
-            Authorization: "Bearer " + token,
-          },
-        }
-      );
-      props.reloadTicket(true);
+      await axios.post("http://127.0.0.1:8000/api/tickets/post/", newTicket, {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      });
+      props.reloadProject(true);
       props.setModalStatus(false);
     } catch (error) {
       console.log(error.message);
@@ -61,25 +50,16 @@ function EditModel(props) {
   //upon user clicking submit this function formats newly updated data and passes it to axios request then closes the modal.
   function handleSubmit(event) {
     event.preventDefault();
-    let updatedTicket = {
+    let newTicket = {
       title: ticketTitle,
       description: ticketDescrip,
-      ticket_id: ticket.id,
-      project_id: props.ticket.project.id,
+      project_id: props.projectId,
       author_id: user.id,
-      is_completed: isCompleted,
+      is_completed: false,
       priority_id: ticketPriority[0],
       type_id: ticketType[0],
     };
-    putTicket(updatedTicket);
-  }
-
-  //Conditionaly gives dropdown for status a text value to hold depending upon bool value.
-  let statusText;
-  if (isCompleted === false) {
-    statusText = "Incomplete";
-  } else {
-    statusText = "Completed";
+    postTicket(newTicket);
   }
 
   return (
@@ -93,7 +73,7 @@ function EditModel(props) {
             >
               CANCEL
             </button>
-            <button type="submit" className="submitBtn">
+            <button type="submit" className="ticketSubmitBtn">
               SUBMIT
             </button>
           </div>
@@ -116,7 +96,7 @@ function EditModel(props) {
             onChange={(event) => setTicketDescrip(event.target.value)}
           />
         </form>
-        <div className="space-between">
+        <div className="space-around">
           <div class="dropdown">
             <h5>PRIORITY</h5>
             <button class="dropbtn">{ticketPriority[1]}</button>
@@ -146,21 +126,9 @@ function EditModel(props) {
               })}
             </div>
           </div>
-          <div class="dropdown">
-            <h5>STATUS</h5>
-            <button class="dropbtn">{statusText}</button>
-            <div class="dropdown-content">
-              <button key={1} onClick={() => setIsCompleted(false)}>
-                Incomplete
-              </button>
-              <button key={2} onClick={() => setIsCompleted(true)}>
-                Complete
-              </button>
-            </div>
-          </div>
         </div>
       </div>
     </div>
   );
 }
-export default EditModel;
+export default AddTicketModel;

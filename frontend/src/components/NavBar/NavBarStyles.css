@@ -18,7 +18,9 @@
 .Side-NavBar button {
   min-width: 10rem;
 }
-
+.Side-NavBar button:hover {
+  cursor: pointer;
+}
 .NavBar-container {
   overflow: hidden;
   width: fit-content;

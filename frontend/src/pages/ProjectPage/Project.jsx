@@ -1,8 +1,11 @@
 import { React, useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
-import { useNavigate, Link, useParams } from "react-router-dom";
+import { useLocation, Link, useParams } from "react-router-dom";
 import axios from "axios";
+//components imports
 import NavBar from "../../components/NavBar/NavBar";
+import AddTicket from "../../components/AddTicket/AddTicket";
+//styles imports
 import "./ProjectStyles.css";
 
 const ProjectPage = (props) => {
@@ -15,41 +18,61 @@ const ProjectPage = (props) => {
   const [author, setAuthor] = useState([]);
   const { id } = useParams();
 
-  //Every time a new project id is sent through parameters axios request is called.
+  //Having a hard time making trigger work used in DeleteModal.jsx
+  const trigger = useLocation();
+
+  //requestReload is monitered by useEffect, use it to reload page.
+  const [requestReload, setRequestReload] = useState(true);
+
+  //moniters id for change
   useEffect(() => {
-    const fetchProject = async () => {
-      let projectResponse;
-      let ticketsResponse;
-      try {
-        projectResponse = await axios.get(
-          `http://127.0.0.1:8000/api/projects/${id}/`,
-          {
-            headers: {
-              Authorization: "Bearer " + token,
-            },
-          }
-        );
-      } catch (error) {
-        console.log(error.message);
-      }
-      try {
-        ticketsResponse = await axios.get(
-          `http://127.0.0.1:8000/api/tickets/list/${id}/`,
-          {
-            headers: {
-              Authorization: "Bearer " + token,
-            },
-          }
-        );
-      } catch (error) {
-        console.log(error.message);
-      }
-      setTickets(ticketsResponse.data);
-      setAuthor(projectResponse.data.project_author.username);
-      setProject(projectResponse.data);
-    };
-    fetchProject();
+    if (requestReload === false) {
+      setRequestReload(true);
+    } else {
+      console.log("Error from useEffect Project.jsx line.28");
+    }
   }, [id]);
+
+  //triggered by first useEffect
+  useEffect(() => {
+    if (requestReload === true) {
+      const fetchProject = async () => {
+        let projectResponse;
+        let ticketsResponse;
+        try {
+          projectResponse = await axios.get(
+            `http://127.0.0.1:8000/api/projects/${id}/`,
+            {
+              headers: {
+                Authorization: "Bearer " + token,
+              },
+            }
+          );
+        } catch (error) {
+          console.log(error.message);
+        }
+        try {
+          ticketsResponse = await axios.get(
+            `http://127.0.0.1:8000/api/tickets/list/${id}/`,
+            {
+              headers: {
+                Authorization: "Bearer " + token,
+              },
+            }
+          );
+        } catch (error) {
+          console.log(error.message);
+        }
+        setTickets(ticketsResponse.data);
+        setAuthor(projectResponse.data.project_author.username);
+        setProject(projectResponse.data);
+        setRequestReload(false);
+      };
+      fetchProject();
+    } else {
+      console.log("Error in useEffect Project.jsx line.68");
+    }
+  }, [requestReload]);
 
   let table;
   if (tickets.length) {
@@ -125,10 +148,10 @@ const ProjectPage = (props) => {
               <p>description</p>
               <h3>{project.description}</h3>
             </div>
-            <div className="ticketstext-addbtn-container">
-              <h3>Tickets</h3>
-              <button>+</button>
-            </div>
+            <AddTicket
+              reloadProject={setRequestReload}
+              projectId={project.id}
+            />
           </div>
         )}
         {table}

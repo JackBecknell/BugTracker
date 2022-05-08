@@ -27,14 +27,14 @@ const InspectTicketPage = (props) => {
 
   //need to update after comments have been created and added to db.
   useEffect(() => {
-    if (requestReload == false) {
+    if (requestReload === false) {
       setRequestReload(true);
     } else {
-      console.log("passed over reload 1");
+      console.log("Error from useEffect InspectTicket.jsx line.33");
     }
   }, [id]);
   useEffect(() => {
-    if (requestReload == true) {
+    if (requestReload === true) {
       const fetchTicket = async () => {
         let ticketResponse;
         let commentsResponse;

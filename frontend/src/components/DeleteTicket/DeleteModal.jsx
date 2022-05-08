@@ -20,7 +20,9 @@ function DeleteModal(props) {
           },
         }
       );
-      navigate(`/projectPage/${props.projectId}`);
+      navigate(`/projectPage/${props.projectId}`, {
+        state: { request: "reload" },
+      });
     } catch (error) {
       console.log(error.message);
     }
