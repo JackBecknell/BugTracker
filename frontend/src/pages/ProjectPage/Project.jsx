@@ -36,42 +36,43 @@ const ProjectPage = (props) => {
   //triggered by first useEffect
   useEffect(() => {
     if (requestReload === true) {
-      const fetchProject = async () => {
-        let projectResponse;
-        let ticketsResponse;
-        try {
-          projectResponse = await axios.get(
-            `http://127.0.0.1:8000/api/projects/${id}/`,
-            {
-              headers: {
-                Authorization: "Bearer " + token,
-              },
-            }
-          );
-        } catch (error) {
-          console.log(error.message);
-        }
-        try {
-          ticketsResponse = await axios.get(
-            `http://127.0.0.1:8000/api/tickets/list/${id}/`,
-            {
-              headers: {
-                Authorization: "Bearer " + token,
-              },
-            }
-          );
-        } catch (error) {
-          console.log(error.message);
-        }
-        setTickets(ticketsResponse.data);
-        setAuthor(projectResponse.data.project_author.username);
-        setProject(projectResponse.data);
-        setRequestReload(false);
-      };
-      fetchProject();
-    } else {
-      console.log("Error in useEffect Project.jsx line.68");
-    }
+      //moving up to app.jsx
+    //   const fetchProject = async () => {
+    //     let projectResponse;
+    //     let ticketsResponse;
+    //     try {
+    //       projectResponse = await axios.get(
+    //         `http://127.0.0.1:8000/api/projects/${id}/`,
+    //         {
+    //           headers: {
+    //             Authorization: "Bearer " + token,
+    //           },
+    //         }
+    //       );
+    //     } catch (error) {
+    //       console.log(error.message);
+    //     }
+    //     try {
+    //       ticketsResponse = await axios.get(
+    //         `http://127.0.0.1:8000/api/tickets/list/${id}/`,
+    //         {
+    //           headers: {
+    //             Authorization: "Bearer " + token,
+    //           },
+    //         }
+    //       );
+    //     } catch (error) {
+    //       console.log(error.message);
+    //     }
+    //     setTickets(ticketsResponse.data);
+    //     setAuthor(projectResponse.data.project_author.username);
+    //     setProject(projectResponse.data);
+    //     setRequestReload(false);
+    //   };
+    //   fetchProject();
+    // } else {
+    //   console.log("Error in useEffect Project.jsx line.68");
+    // }
   }, [requestReload]);
 
   let table;
