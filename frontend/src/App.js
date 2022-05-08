@@ -1,5 +1,6 @@
 // General Imports
 import { Routes, Route } from "react-router-dom";
+import { useState } from "react";
 import "./App.css";
 
 // Pages Imports
@@ -18,6 +19,10 @@ import Header from "./components/Header/Header";
 import PrivateRoute from "./utils/PrivateRoute";
 
 function App() {
+  //this useState function is called when user click on a project setting proj pk.
+  //then we pass it to InspectTicket and use it to navigate back to project page should user delete project.
+  const [projectId, setProjectId] = useState(0);
+
   return (
     <div className="page">
       <Header />
@@ -26,7 +31,7 @@ function App() {
           path="/"
           element={
             <PrivateRoute>
-              <DashBoard />
+              <DashBoard setProjectId={setProjectId} />
             </PrivateRoute>
           }
         />
@@ -42,7 +47,7 @@ function App() {
           path="/inspectTicket/:id"
           element={
             <PrivateRoute>
-              <InspectTicketPage />
+              <InspectTicketPage projectId={projectId} />
             </PrivateRoute>
           }
         />

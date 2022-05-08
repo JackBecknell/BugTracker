@@ -7,7 +7,7 @@ import axios from "axios";
 import "./DashBoardStyless.css";
 import NavBar from "../../components/NavBar/NavBar";
 
-const DashBoard = () => {
+const DashBoard = (props) => {
   // The "user" value from this Hook contains the decoded logged in user information (username, first name, id)
   // The "token" value is the JWT token that you will send in the header of any request requiring authentication
   const [user, token] = useAuth();
@@ -40,6 +40,7 @@ const DashBoard = () => {
         {projects &&
           projects.map((project, i) => (
             <Link
+              onClick={() => props.setProjectId(project.id)}
               key={i}
               to={`/projectPage/${project.id}`}
               style={{ textDecoration: "none", color: "black" }}

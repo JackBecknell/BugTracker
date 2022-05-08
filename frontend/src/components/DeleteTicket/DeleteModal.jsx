@@ -2,10 +2,11 @@ import { React, useEffect, useState } from "react";
 import axios from "axios";
 import useAuth from "../../hooks/useAuth";
 import "./DeleteTicketStyles.css";
+import { useNavigate } from "react-router-dom";
 
 function DeleteModal(props) {
   const [user, token] = useAuth();
-
+  const navigate = useNavigate();
   const [delTextBox, setDelTextBox] = useState("");
 
   const delTicket = async () => {
@@ -19,8 +20,7 @@ function DeleteModal(props) {
           },
         }
       );
-      props.reloadTicket(true);
-      props.setModalStatus(false);
+      navigate(`/projectPage/${props.projectId}`);
     } catch (error) {
       console.log(error.message);
     }
@@ -48,6 +48,7 @@ function DeleteModal(props) {
             >
               CANCEL
             </button>
+
             <button type="submit" className="submitBtn">
               SUBMIT
             </button>

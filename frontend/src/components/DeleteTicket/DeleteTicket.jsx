@@ -17,8 +17,8 @@ const DeleteTicket = (props) => {
         {modalStatus && (
           <DeleteModal
             ticket={props.ticket}
+            projectId={props.projectId}
             setModalStatus={setModalStatus}
-            reloadTicket={props.reloadTicket}
           />
         )}
       </div>

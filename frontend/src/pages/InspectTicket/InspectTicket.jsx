@@ -177,6 +177,7 @@ const InspectTicketPage = (props) => {
                     <DeleteTicket
                       ticket={ticket}
                       reloadTicket={setRequestReload}
+                      projectId={props.projectId}
                     />
                   </div>
                 </div>

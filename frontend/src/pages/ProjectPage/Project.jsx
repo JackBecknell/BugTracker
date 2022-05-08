@@ -3,7 +3,6 @@ import useAuth from "../../hooks/useAuth";
 import { useNavigate, Link, useParams } from "react-router-dom";
 import axios from "axios";
 import NavBar from "../../components/NavBar/NavBar";
-import EditTicket from "../../components/EditTicket/EditTicket";
 import "./ProjectStyles.css";
 
 const ProjectPage = (props) => {
@@ -126,8 +125,9 @@ const ProjectPage = (props) => {
               <p>description</p>
               <h3>{project.description}</h3>
             </div>
-            <div>
+            <div className="ticketstext-addbtn-container">
               <h3>Tickets</h3>
+              <button>+</button>
             </div>
           </div>
         )}

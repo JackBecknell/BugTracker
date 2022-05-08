@@ -35,7 +35,6 @@
 }
 
 .ticket-table {
-  margin-top: 10px;
   background-color: rgb(185, 185, 185);
   border-radius: 10px;
   width: 100%;
@@ -70,4 +69,37 @@ tbody tr:nth-child(even) {
 .ticket-view-btn :hover {
   color: #ffffff;
   background-color: rgb(0, 0, 0);
+}
+
+/* Tickets header and add button styels */
+.ticketstext-addbtn-container {
+  margin: 1rem;
+  margin-bottom: 0%;
+  background-color: #006b9c;
+  display: flex;
+  width: fit-content;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.ticketstext-addbtn-container h3 {
+  margin: 0.5rem;
+  padding: 0.1rem;
+  color: #ffffff;
+  background-color: #006b9c;
+  letter-spacing: 2px;
+}
+
+.ticketstext-addbtn-container button {
+  border-top-right-radius: 8px;
+  background-color: #acacac;
+  width: 3rem;
+  font-size: larger;
+  border-width: 1px;
+  transition: 600ms;
+}
+
+.ticketstext-addbtn-container button:hover {
+  border-top-right-radius: 8px;
+  background-color: rgb(72, 255, 72);
 }
