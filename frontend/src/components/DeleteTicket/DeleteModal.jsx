@@ -1,4 +1,4 @@
-import { React, useEffect, useState } from "react";
+import { React, useEffect, useState, Component } from "react";
 import axios from "axios";
 import useAuth from "../../hooks/useAuth";
 import "./DeleteTicketStyles.css";
@@ -40,7 +40,16 @@ function DeleteModal(props) {
   return (
     <div className="modal2Background">
       <div className="modal2Container">
-        <form onSubmit={handleSubmit}>
+        <form
+          onSubmit={handleSubmit}
+          onKeyPress={(e) => {
+            if (e.key === "Enter") {
+              if (delTextBox === "farewell-ticket") {
+                delTicket();
+              }
+            }
+          }}
+        >
           <div className="cancel-submit-btns">
             <button
               onClick={() => props.setModalStatus(false)}

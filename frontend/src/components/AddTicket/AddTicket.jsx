@@ -15,7 +15,6 @@ const AddTicket = (props) => {
         </div>
         {modalStatus && (
           <AddTicketModel
-            reloadProject={props.reloadProject}
             projectId={props.projectId}
             setModalStatus={setModalStatus}
           />

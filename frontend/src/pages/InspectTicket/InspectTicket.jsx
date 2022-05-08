@@ -59,12 +59,13 @@ const InspectTicketPage = (props) => {
               },
             }
           );
+          setTicket(ticketResponse.data);
+          setComments(commentsResponse.data);
+          setRequestReload(false);
         } catch (error) {
           console.log(error.message);
         }
-        setTicket(ticketResponse.data);
-        setComments(commentsResponse.data);
-        setRequestReload(false);
+        //!!!where all three set functions were earlier!!!I am testing this because delete sometimes doesn't work
       };
       fetchTicket();
     } else {

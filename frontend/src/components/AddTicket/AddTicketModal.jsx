@@ -1,11 +1,11 @@
 import { React, useEffect, useState } from "react";
 import axios from "axios";
 import useAuth from "../../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 import "./AddTicketStyles.css";
 
 function AddTicketModel(props) {
-  //NEED PROJECT ID IMPORT
-
+  const navigate = useNavigate();
   const [user, token] = useAuth();
   //Single values
   const [ticketTitle, setTicketTitle] = useState("");
@@ -40,7 +40,8 @@ function AddTicketModel(props) {
           Authorization: "Bearer " + token,
         },
       });
-      props.reloadProject(true);
+      navigate(`/projectPage/-1`);
+      navigate(`/projectPage/${props.projectId}`);
       props.setModalStatus(false);
     } catch (error) {
       console.log(error.message);
