@@ -58,7 +58,7 @@ const TicketsPage = (props) => {
                   <td>{ticket.author.username}</td>
                   <Link
                     key={i}
-                    to={`/inspectTicket/${ticket.id}`}
+                    to={`/inspectTicket/${ticket.id}/Tickets.jsx`}
                     style={{ textDecoration: "none", color: "black" }}
                   >
                     <div className="ticket-view-btn">

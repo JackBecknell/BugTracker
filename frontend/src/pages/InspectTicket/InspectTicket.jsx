@@ -12,7 +12,7 @@ const InspectTicketPage = (props) => {
   //token is used for axios request
   const [user, token] = useAuth();
   // id is used for navigating pages
-  const { id } = useParams();
+  const { id, comingFrom } = useParams();
   //ticket holds ticket value retrieved by axios request
   const [ticket, setTicket] = useState([]);
   //holds conditional value for displaying post comment form
@@ -25,9 +25,10 @@ const InspectTicketPage = (props) => {
   const [comments, setComments] = useState([]);
   const [requestReload, setRequestReload] = useState(true);
 
+  console.log(comingFrom);
   //need to update after comments have been created and added to db.
   useEffect(() => {
-    if (requestReload == false) {
+    if (requestReload === false) {
       setRequestReload(true);
     } else {
       console.log("passed over reload 1");
@@ -180,6 +181,7 @@ const InspectTicketPage = (props) => {
                       ticket={ticket}
                       reloadTicket={setRequestReload}
                       projectId={props.projectId}
+                      comingFrom={comingFrom}
                     />
                   </div>
                 </div>

@@ -19,6 +19,7 @@ const DeleteTicket = (props) => {
             ticket={props.ticket}
             projectId={props.projectId}
             setModalStatus={setModalStatus}
+            comingFrom={props.comingFrom}
           />
         )}
       </div>

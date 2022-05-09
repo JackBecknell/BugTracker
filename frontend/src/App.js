@@ -44,7 +44,7 @@ function App() {
           }
         />
         <Route
-          path="/inspectTicket/:id"
+          path="/inspectTicket/:id/:comingFrom"
           element={
             <PrivateRoute>
               <InspectTicketPage projectId={projectId} />

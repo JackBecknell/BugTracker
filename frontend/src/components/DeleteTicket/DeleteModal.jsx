@@ -20,7 +20,13 @@ function DeleteModal(props) {
           },
         }
       );
-      navigate(`/projectPage/${props.projectId}`);
+      if (props.comingFrom === "Projects.jsx") {
+        navigate(`/projectPage/${props.projectId}`);
+      } else if (props.comingFrom === "Tickets.jsx") {
+        navigate("/ticketsPage");
+      } else {
+        navigate("/");
+      }
     } catch (error) {
       console.log(error.message);
     }
