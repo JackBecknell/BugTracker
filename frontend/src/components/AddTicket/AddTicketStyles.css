@@ -54,6 +54,7 @@
   color: white;
   letter-spacing: 1px;
   width: 50%;
+  min-width: 350px;
   height: fit-content;
   margin-top: -10rem;
   border-radius: 10px;

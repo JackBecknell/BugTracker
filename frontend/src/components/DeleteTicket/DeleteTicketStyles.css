@@ -58,6 +58,7 @@
 
 .modalContainer h4 {
   margin-bottom: 0%;
+  min-width: 350px;
 }
 
 form input {

@@ -1,0 +1,62 @@
+.projects-addbtn-container button {
+  width: 2rem;
+  height: 2rem;
+  font-size: x-large;
+  border-radius: 100%;
+  background-color: rgb(146, 146, 146);
+  margin-left: 5px;
+  border-width: 1px;
+  transition: 1000ms;
+}
+
+.projects-addbtn-container button:hover {
+  border: none;
+  background-color: rgb(10, 201, 10);
+  cursor: pointer;
+  color: rgb(0, 0, 0);
+}
+
+.create-new-project {
+  display: flex;
+  text-align: center;
+  color: rgb(112, 180, 112);
+  font-size: x-large;
+  justify-content: space-around;
+}
+
+.cancel-submit-btns {
+  display: flex;
+  justify-content: space-between;
+}
+
+.cancel-Btn {
+  background-color: #0084ff;
+  border-radius: 5px;
+  padding: 5px;
+  color: white;
+  transition: 0.7s;
+}
+
+.cancelBtn:hover {
+  background-color: rgb(252, 191, 191);
+  letter-spacing: 2px;
+  color: rgb(255, 0, 0);
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.ticket-Submit-Btn {
+  background-color: #0084ff;
+  color: rgb(255, 255, 255);
+  border-radius: 5px;
+  padding: 5px;
+  color: white;
+  transition: 0.7s;
+}
+
+.ticket-Submit-Btn:hover {
+  background-color: rgb(182, 255, 180);
+  letter-spacing: 2px;
+  color: rgb(4, 117, 0);
+  font-weight: bold;
+}
