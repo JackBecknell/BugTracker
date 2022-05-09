@@ -9,14 +9,15 @@ import "./InspectTicket.css";
 import axios from "axios";
 
 const InspectTicketPage = (props) => {
-  //token is used for axios request
   const [user, token] = useAuth();
-  // id is used for navigating pages
+
+  // id defines ticket pk, comingFrom defines where the user will be
+  //routed should the ticket be deleted
   const { id, comingFrom } = useParams();
-  //ticket holds ticket value retrieved by axios request
+
+  //All ticket values stored here post axios request
   const [ticket, setTicket] = useState([]);
-  //holds conditional value for displaying post comment form
-  const [displayCreateComment, setDisplayCreateComment] = useState(false);
+
   //value put into post comment input
   const [commentText, setCommentText] = useState("");
   //holds conditional value for displaying comments
@@ -25,15 +26,16 @@ const InspectTicketPage = (props) => {
   const [comments, setComments] = useState([]);
   const [requestReload, setRequestReload] = useState(true);
 
-  console.log(comingFrom);
+  let reloadConditions = [id, requestReload];
   //need to update after comments have been created and added to db.
-  useEffect(() => {
-    if (requestReload === false) {
-      setRequestReload(true);
-    } else {
-      console.log("passed over reload 1");
-    }
-  }, [id]);
+  // useEffect(() => {
+  //   if (requestReload === false) {
+  //     setRequestReload(true);
+  //   } else {
+  //     console.log("passed over reload 1");
+  //   }
+  // }, [id]);
+
   useEffect(() => {
     if (requestReload == true) {
       const fetchTicket = async () => {
@@ -67,13 +69,12 @@ const InspectTicketPage = (props) => {
           console.log(error.message);
         }
         setRequestReload(false);
-        //!!!where all three set functions were earlier!!!I am testing this because delete sometimes doesn't work
       };
       fetchTicket();
     } else {
       console.log("passed over reload 2");
     }
-  }, [requestReload]);
+  }, [reloadConditions]);
 
   //conditional rendering for bool field in ticket.
   let status;
@@ -112,13 +113,28 @@ const InspectTicketPage = (props) => {
   }
 
   let postCommentForm;
-  if (displayCreateComment) {
+  if (displayComments) {
     postCommentForm = (
       <div>
-        <form onSubmit={handleSubmit}>
-          <input
+        <form
+          onSubmit={handleSubmit}
+          onKeyPress={(e) => {
+            if (e.key === "Enter") {
+              let newComment = {
+                text: `${commentText}`,
+                user_id: user.id,
+                ticket_id: ticket.id,
+              };
+              postComment(newComment);
+            }
+          }}
+        >
+          <textarea
             type="text"
             placeholder="Type comment here..."
+            rows="4"
+            maxlength="1000"
+            className="auto_height"
             value={commentText}
             onChange={(event) => setCommentText(event.target.value)}
           />
@@ -137,12 +153,17 @@ const InspectTicketPage = (props) => {
     if (comments.length >= 1) {
       returnComments = (
         <div className="comments-container">
-          {comments.map((comment, i) => (
-            <div key={i} className="comment-box">
-              <h4>{comment.user.username}</h4>
-              <p>{comment.text}</p>
-            </div>
-          ))}
+          {comments
+            .slice(0)
+            .reverse()
+            .map((comment, i) => (
+              <div key={i} className="comment-box">
+                <h4>{comment.user.username}</h4>
+                <div className="commenttext-container">
+                  <p>{comment.text}</p>
+                </div>
+              </div>
+            ))}
         </div>
       );
     } else {
@@ -205,15 +226,7 @@ const InspectTicketPage = (props) => {
               <p>description</p>
               <h3>{ticket.description}</h3>
             </div>
-            <div>
-              <button
-                onClick={() => setDisplayCreateComment(!displayCreateComment)}
-                className="view-comments-btn"
-              >
-                Post Comment
-              </button>
-              <div>{postCommentForm}</div>
-            </div>
+            <div></div>
             <div className="viewComments-container">
               <button
                 onClick={() => setDisplayComments(!displayComments)}
@@ -221,6 +234,7 @@ const InspectTicketPage = (props) => {
               >
                 {comntTogglBtnTxt}
               </button>
+              <div>{postCommentForm}</div>
               <div>{returnComments}</div>
             </div>
           </div>

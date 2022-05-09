@@ -11,6 +11,10 @@
   width: 50%;
 }
 
+.phead {
+  display: flex;
+}
+
 .projects-head {
   display: table-cell;
   min-width: fit-content;
@@ -33,6 +37,7 @@
 .project-link {
   display: flex;
   justify-content: space-around;
+  min-width: 380px;
   background-color: rgb(139, 139, 139);
   margin: 0.4rem;
   border-radius: 10px;
