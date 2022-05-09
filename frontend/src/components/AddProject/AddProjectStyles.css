@@ -37,7 +37,7 @@
   transition: 0.7s;
 }
 
-.cancelBtn:hover {
+.cancel-Btn:hover {
   background-color: rgb(252, 191, 191);
   letter-spacing: 2px;
   color: rgb(255, 0, 0);
@@ -59,4 +59,5 @@
   letter-spacing: 2px;
   color: rgb(4, 117, 0);
   font-weight: bold;
+  cursor: pointer;
 }

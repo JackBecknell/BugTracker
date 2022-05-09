@@ -17,6 +17,7 @@ const AddTicket = (props) => {
           <AddTicketModel
             projectId={props.projectId}
             setModalStatus={setModalStatus}
+            reloadProject={props.reloadProject}
           />
         )}
       </div>

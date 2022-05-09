@@ -40,7 +40,16 @@
   min-width: 380px;
   background-color: rgb(139, 139, 139);
   margin: 0.4rem;
+  margin-bottom: 1rem;
   border-radius: 10px;
   padding-right: 1%;
   padding-left: 1%;
+  transition: 100ms;
+}
+
+.project-link:hover {
+  transform: scale(1.02);
+  margin-left: auto;
+  margin-right: auto;
+  background-color: rgb(170, 192, 219);
 }

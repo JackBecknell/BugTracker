@@ -5,6 +5,7 @@ import axios from "axios";
 import NavBar from "../../components/NavBar/NavBar";
 import AddTicket from "../../components/AddTicket/AddTicket";
 import EditProject from "../../components/EditProject/EditProject";
+import DeleteProject from "../../components/DeleteProject/DeleteProject";
 import "./ProjectStyles.css";
 
 const ProjectPage = (props) => {
@@ -142,7 +143,7 @@ const ProjectPage = (props) => {
                     />
                   </div>
                   <div className="del-Container">
-                    <button>del</button>
+                    <DeleteProject project={project} />
                   </div>
                 </div>
               ) : (
@@ -163,7 +164,10 @@ const ProjectPage = (props) => {
               <p>description</p>
               <h3>{project.description}</h3>
             </div>
-            <AddTicket projectId={project.id} />
+            <AddTicket
+              projectId={project.id}
+              reloadProject={setRequestReload}
+            />
           </div>
         )}
         {table}

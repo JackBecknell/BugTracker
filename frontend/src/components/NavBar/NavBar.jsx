@@ -13,22 +13,15 @@ const NavBar = () => {
       <div className="Side-NavBar">
         <ul>
           <li>
-            <button className="unNamed" onClick={() => navigate("/")}>
-              Dashboard
-            </button>
+            <button onClick={() => navigate("/")}>Dashboard</button>
           </li>
+          <div className="divider"></div>
           <li>
-            <button
-              className="unNamed"
-              onClick={() => navigate("/ticketsPage")}
-            >
-              Tickets
-            </button>
+            <button onClick={() => navigate("/ticketsPage")}>Tickets</button>
           </li>
+          <div className="divider"></div>
           <li>
-            <button className="unNamed" onClick={() => navigate("/adminPage")}>
-              Admin
-            </button>
+            <button onClick={() => navigate("/adminPage")}>Admin</button>
           </li>
         </ul>
       </div>

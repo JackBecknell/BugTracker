@@ -11,9 +11,31 @@ li {
 .Header {
   background: rgb(82, 81, 81);
   box-shadow: 4px 2px 5px gray;
-  color: white;
+  color: linear-gradient(
+    to right top,
+    #ab3cff,
+    #c44cfe,
+    #da5dfe,
+    #ed6ffe,
+    #fe81ff
+  );
+
   margin-bottom: 0rem;
   padding: 1.5rem 2rem;
+}
+
+b {
+  background: linear-gradient(
+    to right top,
+    #ab3cff,
+    #c44cfe,
+    #da5dfe,
+    #ed6ffe,
+    #fe81ff
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: larger;
 }
 
 .Header button {
@@ -32,4 +54,14 @@ li {
 .brand {
   cursor: pointer;
   font-size: 2rem;
+}
+
+.img-BUGtracker {
+  display: flex;
+  align-items: center;
+}
+
+img {
+  width: 65px;
+  height: auto;
 }

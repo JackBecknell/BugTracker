@@ -1,18 +1,18 @@
 import { React, useState } from "react";
 import axios from "axios";
 import useAuth from "../../hooks/useAuth";
-import "./DeleteTicketStyles.css";
+import "./DeleteProjectStyles.css";
 import { useNavigate } from "react-router-dom";
 
-function DeleteModal(props) {
+function DeleteProjectModal(props) {
   const [user, token] = useAuth();
   const navigate = useNavigate();
   const [delTextBox, setDelTextBox] = useState("");
 
-  const delTicket = async () => {
+  const delProject = async () => {
     try {
       await axios.delete(
-        `http://127.0.0.1:8000/api/tickets/${props.ticket.id}/`,
+        `http://127.0.0.1:8000/api/projects/${props.project.id}/`,
 
         {
           headers: {
@@ -20,13 +20,7 @@ function DeleteModal(props) {
           },
         }
       );
-      if (props.comingFrom === "Projects.jsx") {
-        navigate(`/projectPage/${props.projectId}`);
-      } else if (props.comingFrom === "Tickets.jsx") {
-        navigate("/ticketsPage");
-      } else {
-        navigate("/");
-      }
+      navigate(`/`);
     } catch (error) {
       console.log(error.message);
     }
@@ -34,11 +28,11 @@ function DeleteModal(props) {
 
   function handleSubmit(event) {
     event.preventDefault();
-    if (delTextBox === "farewell-ticket") {
-      delTicket();
+    if (delTextBox === "farewell-project") {
+      delProject();
     } else {
       alert(
-        "In order to delete your ticket you must type...\n\nfarewell-ticket\n\n...exactly. Check your spelling and try again."
+        "In order to delete your ticket you must type...\n\nfarewell-project\n\n...exactly. Check your spelling and try again."
       );
     }
   }
@@ -50,8 +44,8 @@ function DeleteModal(props) {
           onSubmit={handleSubmit}
           onKeyPress={(e) => {
             if (e.key === "Enter") {
-              if (delTextBox === "farewell-ticket") {
-                delTicket();
+              if (delTextBox === "farewell-project") {
+                delProject();
               }
             }
           }}
@@ -70,9 +64,11 @@ function DeleteModal(props) {
           </div>
           <h4>ARE YOU SURE YOU WANT TO DELETE!</h4>
           <p>
-            Deleting a ticket is permanent...which is a pretty long time.
+            Deleting a project will also delete all tickets assigned to it!
             <br></br>
-            If you want to continue type "farewell-ticket" in the input box
+            You will not be able to recover this project if you proceed.
+            <br></br>
+            If you want to continue type "farewell-project" in the input box
             below and hit submit.
           </p>
           <input
@@ -88,4 +84,4 @@ function DeleteModal(props) {
     </div>
   );
 }
-export default DeleteModal;
+export default DeleteProjectModal;

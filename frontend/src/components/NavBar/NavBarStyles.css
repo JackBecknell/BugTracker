@@ -13,10 +13,31 @@
 
 .Side-NavBar ul {
   list-style-type: none;
+  margin-top: 2%;
+}
+.divider {
+  border-style: solid;
+  border-width: 1px;
 }
 
 .Side-NavBar button {
-  min-width: 10rem;
+  font-size: large;
+  border-style: none;
+  min-width: 11rem;
+  height: 2rem;
+  background-color: #dbdbdb4d;
+}
+.Side-NavBar button:hover {
+  cursor: pointer;
+  background: linear-gradient(
+    to right top,
+    #ab3cff,
+    #c44cfe,
+    #da5dfe,
+    #ed6ffe,
+    #fe81ff
+  );
+  transform: scale(1.03);
 }
 
 .NavBar-container {

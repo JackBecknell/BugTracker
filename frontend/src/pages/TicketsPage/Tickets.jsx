@@ -80,12 +80,29 @@ const TicketsPage = (props) => {
     );
   }
 
+  // START TEST ZONE
+  function handleTest() {
+    let newTickets = Object.entries(tickets);
+    let returnTickets = [];
+
+    for (const [key, value] of Object.entries(tickets)) {
+      console.log(`${key}: ${value}`);
+      if (value.title.includes("ticket")) {
+        console.log(value.title);
+        returnTickets.push(value);
+      }
+    }
+  }
+
+  // END TEST ZONE
+
   return (
     <div className="nav-tickets-container">
       <NavBar />
       <div className="table-container">
         <div className="tickets-head">
           <h3>TICKETS</h3>
+          <button onClick={() => handleTest()}>test</button>
         </div>
         {table}
       </div>

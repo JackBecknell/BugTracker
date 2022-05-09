@@ -12,7 +12,12 @@ const Header = () => {
       <ul className="ul">
         <li className="brand">
           <Link to="/" style={{ textDecoration: "none", color: "white" }}>
-            <b>BUGtracker</b>
+            <div className="img-BUGtracker">
+              <div>
+                <img src={require("../../media/virus.png")} key={"imgsrc"} />
+              </div>
+              <b>BUGtracker</b>
+            </div>
           </Link>
         </li>
         <li>
