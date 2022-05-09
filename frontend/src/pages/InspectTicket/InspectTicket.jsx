@@ -27,14 +27,6 @@ const InspectTicketPage = (props) => {
   const [requestReload, setRequestReload] = useState(true);
 
   let reloadConditions = [id, requestReload];
-  //need to update after comments have been created and added to db.
-  // useEffect(() => {
-  //   if (requestReload === false) {
-  //     setRequestReload(true);
-  //   } else {
-  //     console.log("passed over reload 1");
-  //   }
-  // }, [id]);
 
   useEffect(() => {
     if (requestReload == true) {
