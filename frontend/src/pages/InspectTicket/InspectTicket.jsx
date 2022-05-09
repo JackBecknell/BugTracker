@@ -29,7 +29,7 @@ const InspectTicketPage = (props) => {
   let reloadConditions = [id, requestReload];
 
   useEffect(() => {
-    if (requestReload == true) {
+    if (requestReload === true) {
       const fetchTicket = async () => {
         let ticketResponse;
         let commentsResponse;
@@ -60,11 +60,9 @@ const InspectTicketPage = (props) => {
         } catch (error) {
           console.log(error.message);
         }
-        setRequestReload(false);
       };
       fetchTicket();
-    } else {
-      console.log("passed over reload 2");
+      setRequestReload(false);
     }
   }, [reloadConditions]);
 

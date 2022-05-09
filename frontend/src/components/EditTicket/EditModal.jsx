@@ -40,7 +40,7 @@ function EditModel(props) {
     ],
   };
 
-  const postTicket = async (updatedTicket) => {
+  const putTicket = async (updatedTicket) => {
     try {
       await axios.put(
         `http://127.0.0.1:8000/api/tickets/${props.ticket.id}/`,
@@ -71,7 +71,7 @@ function EditModel(props) {
       priority_id: ticketPriority[0],
       type_id: ticketType[0],
     };
-    postTicket(updatedTicket);
+    putTicket(updatedTicket);
   }
 
   //Conditionaly gives dropdown for status a text value to hold depending upon bool value.

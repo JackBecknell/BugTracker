@@ -4,6 +4,7 @@ import { useNavigate, Link, useParams } from "react-router-dom";
 import axios from "axios";
 import NavBar from "../../components/NavBar/NavBar";
 import AddTicket from "../../components/AddTicket/AddTicket";
+import EditProject from "../../components/EditProject/EditProject";
 import "./ProjectStyles.css";
 
 const ProjectPage = (props) => {
@@ -12,45 +13,62 @@ const ProjectPage = (props) => {
   //
   const [project, setProject] = useState([]);
   const [tickets, setTickets] = useState([]);
+  const [projectStatus, setProjectStatus] = useState([]);
   //!!!redundant useState below fixes error in reloading screen, will come back to troubleshoot later.!!!
   const [author, setAuthor] = useState([]);
   const { id } = useParams();
 
+  const [requestReload, setRequestReload] = useState(true);
+
+  let reloadConditions = [id, requestReload];
+
   //Every time a new project id is sent through parameters axios request is called.
   useEffect(() => {
-    const fetchProject = async () => {
-      let projectResponse;
-      let ticketsResponse;
-      try {
-        projectResponse = await axios.get(
-          `http://127.0.0.1:8000/api/projects/${id}/`,
-          {
-            headers: {
-              Authorization: "Bearer " + token,
-            },
-          }
-        );
-      } catch (error) {
-        console.log(error.message);
-      }
-      try {
-        ticketsResponse = await axios.get(
-          `http://127.0.0.1:8000/api/tickets/list/${id}/`,
-          {
-            headers: {
-              Authorization: "Bearer " + token,
-            },
-          }
-        );
-      } catch (error) {
-        console.log(error.message);
-      }
-      setTickets(ticketsResponse.data);
-      setAuthor(projectResponse.data.project_author.username);
-      setProject(projectResponse.data);
-    };
-    fetchProject();
-  }, [id]);
+    if (requestReload === true) {
+      console.log("it ran");
+      const fetchProject = async () => {
+        let projectResponse;
+        let ticketsResponse;
+        try {
+          projectResponse = await axios.get(
+            `http://127.0.0.1:8000/api/projects/${id}/`,
+            {
+              headers: {
+                Authorization: "Bearer " + token,
+              },
+            }
+          );
+        } catch (error) {
+          console.log(error.message);
+        }
+        try {
+          ticketsResponse = await axios.get(
+            `http://127.0.0.1:8000/api/tickets/list/${id}/`,
+            {
+              headers: {
+                Authorization: "Bearer " + token,
+              },
+            }
+          );
+        } catch (error) {
+          console.log(error.message);
+        }
+        if (projectResponse.data.is_completed === true) {
+          setProjectStatus("Completed");
+        } else {
+          setProjectStatus("Incomplete");
+        }
+        setTickets(ticketsResponse.data);
+        setAuthor(projectResponse.data.project_author.username);
+        setProject(projectResponse.data);
+        setRequestReload(false);
+      };
+      fetchProject();
+      setRequestReload(false);
+    } else {
+      console.log("it didn't run");
+    }
+  }, [reloadConditions]);
 
   let table;
   if (tickets.length) {
@@ -109,10 +127,27 @@ const ProjectPage = (props) => {
     <div className="nav-project-tickets-container">
       <NavBar />
       <div className="project-container">
-        <div className="project-head">
+        <div>
           {project.id && (
             <div>
-              <h3>PROJECT : {project.title} </h3>
+              <div className="project-head">
+                <h3>PROJECT : {project.title} </h3>
+              </div>
+              {user.id == project.project_author.id ? (
+                <div className="edit-delete-container">
+                  <div>
+                    <EditProject
+                      project={project}
+                      reloadProject={setRequestReload}
+                    />
+                  </div>
+                  <div className="del-Container">
+                    <button>del</button>
+                  </div>
+                </div>
+              ) : (
+                <div></div>
+              )}
             </div>
           )}
         </div>
@@ -121,6 +156,8 @@ const ProjectPage = (props) => {
             <div className="project-info-container">
               <p>author</p>
               <h3>{author}</h3>
+              <p>status</p>
+              <h3>{projectStatus}</h3>
               <p>posted</p>
               <h3>{project.date_created}</h3>
               <p>description</p>

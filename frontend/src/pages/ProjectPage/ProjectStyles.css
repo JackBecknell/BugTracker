@@ -32,6 +32,7 @@
   background-color: rgb(131, 131, 131);
   padding: 1rem;
   border-radius: 10px;
+  min-width: 460px;
 }
 
 .ticket-table {

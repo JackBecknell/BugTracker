@@ -1,5 +1,5 @@
 import { React, useState } from "react";
-import EditModal from "./EditModal";
+import EditProjectModal from "./EditProjectModal";
 import "./EditProjectStyles.css";
 
 const EditProject = (props) => {
@@ -15,7 +15,7 @@ const EditProject = (props) => {
         <EditProjectModal
           project={props.project}
           setModalStatus={setModalStatus}
-          reloadTicket={props.reloadTicket}
+          reloadProject={props.reloadProject}
         />
       )}
     </div>
