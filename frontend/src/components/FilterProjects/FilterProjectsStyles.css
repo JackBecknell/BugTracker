@@ -1,0 +1,62 @@
+.filter-modal-fullcontainer {
+  display: flex;
+  float: right;
+}
+
+.inputModal-dropDown {
+  display: flex;
+  flex-direction: row;
+}
+
+.reset-btn {
+  position: a;
+  float: toright;
+}
+
+.reset-userFilter {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  min-width: 345px;
+}
+#search-by-user-input {
+  height: 2.3rem;
+}
+
+.submit-search {
+  background-color: #0d9b00;
+  color: white;
+  width: 6rem;
+  height: 2.77rem;
+  padding: auto;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+}
+
+.submit-search:hover {
+  background-color: #096e00;
+}
+
+#reset-btn {
+  border-style: none;
+  background-color: rgb(56, 56, 56);
+  color: white;
+  width: 7rem;
+  height: 2.77rem;
+  padding: auto;
+  padding-right: 0%;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+  border-bottom-left-radius: 70%;
+}
+
+#reset-btn:hover {
+  background-color: black;
+}
+
+#date-input {
+  height: 2.5rem;
+  cursor: text;
+}

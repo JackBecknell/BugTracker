@@ -44,28 +44,47 @@ const DashBoard = (props) => {
   return (
     <div className="nav-projects-container">
       <NavBar />
-      <div className="projects-container">
-        <div className="phead">
-          <div className="projects-head">
-            <h3>PROJECTS</h3>
+      <div className="background-img">
+        <div className="projects-container">
+          <div className="phead">
+            <div className="projects-head">
+              <h3>PROJECTS</h3>
+            </div>
+            <AddProject reloadProject={setRequestReload} />
           </div>
-          <AddProject reloadProject={setRequestReload} />
+          {projects &&
+            projects.map((project, i) => (
+              <Link
+                onClick={() => props.setProjectId(project.id)}
+                key={i}
+                to={`/projectPage/${project.id}`}
+                style={{ textDecoration: "none", color: "black" }}
+              >
+                <div className="project-link">
+                  <div className="project-link-head">
+                    <div className="head-left">
+                      <p>TITLE</p>
+                      <h3>{project.title}</h3>
+                    </div>
+                    <div className="vertical-divider"></div>
+                    <div className="head-mid">
+                      <p>POSTED ON</p>
+                      <h3>{project.date_created}</h3>
+                    </div>
+                    <div className="vertical-divider"></div>
+                    <div className="head-right">
+                      <p>USERNAME</p>
+                      <h3>{project.project_author.username}</h3>
+                    </div>
+                  </div>
+                  <div className="description-cuttoff">
+                    <p>DESCRIPTION</p>
+                    {project.description}
+                  </div>
+                </div>
+              </Link>
+            ))}
         </div>
-        {projects &&
-          projects.map((project, i) => (
-            <Link
-              onClick={() => props.setProjectId(project.id)}
-              key={i}
-              to={`/projectPage/${project.id}`}
-              style={{ textDecoration: "none", color: "black" }}
-            >
-              <div className="project-link">
-                <p>{project.title}</p>
-                <p>{project.description}</p>
-                <p>{project.project_author.username}</p>
-              </div>
-            </Link>
-          ))}
       </div>
     </div>
   );

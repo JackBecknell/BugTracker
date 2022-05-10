@@ -5,10 +5,28 @@
 }
 
 .projects-container {
+  /* background-image: url("../../media/algorithm.png");
+  background-repeat: repeat-y;
+  background-position: center;
+  background-position: top;
+  background-size: contain;*/
   margin-bottom: auto;
   margin-left: auto;
   margin-right: auto;
-  width: 50%;
+  min-width: 75%;
+  max-width: fit-content;
+}
+
+.background-img {
+  background-image: url("../../media/algorithm.png");
+  background-repeat: repeat-y;
+  background-position: center;
+  background-position: top;
+  background-size: contain;
+  margin-bottom: auto;
+  margin-left: auto;
+  margin-right: auto;
+  width: 65%;
 }
 
 .phead {
@@ -36,9 +54,10 @@
 
 .project-link {
   display: flex;
-  justify-content: space-around;
+  flex-direction: column;
+  align-items: center;
   min-width: 380px;
-  background-color: rgb(139, 139, 139);
+  background-color: rgba(139, 139, 139, 0.925);
   margin: 0.4rem;
   margin-bottom: 1rem;
   border-radius: 10px;
@@ -52,4 +71,88 @@
   margin-left: auto;
   margin-right: auto;
   background-color: rgb(170, 192, 219);
+}
+
+.project-link-head {
+  width: 100%;
+  display: grid;
+  grid-template-areas: "top-l div1 top-m div2 top-r";
+  align-content: space-evenly;
+  justify-content: space-around;
+  flex-direction: row;
+}
+
+.head-left {
+  grid-area: "top-l";
+  width: 100%;
+  text-align: center;
+}
+
+.head-left p {
+  color: rgb(82, 82, 82);
+  margin-bottom: 0%;
+  font-size: smaller;
+}
+
+.head-left h3 {
+  margin-top: 0%;
+}
+
+.head-mid {
+  grid-area: "top-m";
+  width: 100%;
+  text-align: center;
+}
+
+.head-mid p {
+  color: rgb(82, 82, 82);
+  margin-bottom: 0%;
+  font-size: smaller;
+}
+
+.head-mid h3 {
+  margin-top: 0%;
+}
+
+.head-right {
+  grid-area: "top-r";
+  width: 100%;
+  text-align: center;
+}
+
+.head-right p {
+  color: rgb(82, 82, 82);
+  margin-bottom: 0%;
+  font-size: smaller;
+}
+
+.head-right h3 {
+  margin-top: 0%;
+}
+
+.vertical-divider {
+  border-style: solid;
+  border-width: 2px;
+  border-left: none;
+  border-top: none;
+  border-bottom: none;
+  border-color: rgba(0, 0, 0, 0.164);
+}
+
+.description-cuttoff {
+  border-style: solid;
+  border-left: none;
+  border-right: none;
+  border-bottom: none;
+  border-color: rgba(0, 0, 0, 0.164);
+  padding: 1rem;
+  width: 95%;
+}
+
+.description-cuttoff p {
+  text-align: center;
+  margin-top: 0%;
+  margin-bottom: 1%;
+  font-size: smaller;
+  color: rgb(82, 82, 82);
 }
