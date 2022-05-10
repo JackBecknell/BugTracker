@@ -41,7 +41,7 @@ const FilterProjects = (props) => {
     <div className="filter-modal-fullcontainer">
       <div className="filter-and-modal">
         <div></div>
-        <div className="inputModal-dropDown">
+        <div className="inputModal-dropDown-projects">
           {filterInputModalStatus && (
             <FilterProjectsByInputModal
               filterBy={filterBy}
@@ -59,7 +59,7 @@ const FilterProjects = (props) => {
             />
           )}
           <div className="dropdown">
-            <button className="dropbtn">{filterButtonName}</button>
+            <button className="prjct-dropbtn">{filterButtonName}</button>
             <div className="dropdown-content">
               <button
                 onClick={() => {

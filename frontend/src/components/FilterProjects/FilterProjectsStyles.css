@@ -61,5 +61,20 @@
   cursor: text;
 }
 
-.filter-modal-fullcontainer {
+.inputModal-dropDown-projects {
+  min-width: fit-content;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+}
+
+.prjct-dropbtn {
+  background-color: #0084ff;
+  color: white;
+  width: 6rem;
+  height: 2.75rem;
+  padding: auto;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
 }

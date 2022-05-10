@@ -6,16 +6,22 @@ const AddProject = (props) => {
   //boolean controls whether edit modal is displayed or not
   const [modalStatus, setModalStatus] = useState(false);
 
+  function handleClick() {
+    props.setAddButtonIsClicked(true);
+    setModalStatus(true);
+  }
+
   return (
     <div>
       <div>
         <div className="projects-addbtn-container">
-          <button onClick={() => setModalStatus(true)}>+</button>
+          <button onClick={handleClick}>+</button>
         </div>
         {modalStatus && (
           <AddProjectModal
             reloadProject={props.reloadProject}
             setModalStatus={setModalStatus}
+            setAddButtonIsClicked={props.setAddButtonIsClicked}
           />
         )}
       </div>

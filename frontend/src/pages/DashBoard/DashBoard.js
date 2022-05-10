@@ -17,6 +17,7 @@ const DashBoard = (props) => {
   const [projects, setProjects] = useState([]);
   const [dateSwitchText, setDateSwitchText] = useState("");
   const [requestReload, setRequestReload] = useState(true);
+  const [addButtonIsClicked, setAddButtonIsClicked] = useState(false);
   const navigate = useNavigate();
 
   let reloadConditions = [token, requestReload];
@@ -54,6 +55,21 @@ const DashBoard = (props) => {
     }
   }, [reloadConditions]);
 
+  let conditionalFilter;
+  if (projects && addButtonIsClicked === false) {
+    conditionalFilter = (
+      <div className="fltr-dateswitch">
+        <FilterProjects
+          reloadProjects={setRequestReload}
+          projects={projects}
+          setProjects={setProjects}
+        />
+        <button onClick={handleProjectsMap}>{dateSwitchText}</button>
+      </div>
+    );
+  } else {
+    conditionalFilter = <div></div>;
+  }
   return (
     <div className="nav-projects-container">
       <NavBar />
@@ -65,19 +81,12 @@ const DashBoard = (props) => {
                 <h3>PROJECTS</h3>
               </div>
 
-              <AddProject reloadProject={setRequestReload} />
+              <AddProject
+                setAddButtonIsClicked={setAddButtonIsClicked}
+                reloadProject={setRequestReload}
+              />
             </div>
-
-            {projects && (
-              <div className="fltr-dateswitch">
-                <FilterProjects
-                  reloadProjects={setRequestReload}
-                  projects={projects}
-                  setProjects={setProjects}
-                />
-                <button onClick={handleProjectsMap}>{dateSwitchText}</button>
-              </div>
-            )}
+            {conditionalFilter}
           </div>
           {projects &&
             projects.map((project, i) => (

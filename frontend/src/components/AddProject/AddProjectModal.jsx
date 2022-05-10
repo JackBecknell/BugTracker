@@ -19,6 +19,7 @@ function AddProjectModal(props) {
         },
       });
       props.reloadProject(true);
+      props.setAddButtonIsClicked(false);
       props.setModalStatus(false);
       navigate("/");
     } catch (error) {
@@ -37,15 +38,17 @@ function AddProjectModal(props) {
     postProject(newProject);
   }
 
+  function handleCancel() {
+    props.setAddButtonIsClicked(false);
+    props.setModalStatus(false);
+  }
+
   return (
     <div className="modalBackground">
       <div className="modalContainer">
         <form onSubmit={handleSubmit}>
           <div className="cancel-submit-btns">
-            <button
-              onClick={() => props.setModalStatus(false)}
-              className="cancel-Btn"
-            >
+            <button onClick={handleCancel} className="cancel-Btn">
               CANCEL
             </button>
             <button type="submit" className="ticket-Submit-Btn">
