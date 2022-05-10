@@ -1,18 +1,18 @@
 import { useState } from "react";
 
-function FilterTicketsByInputModal(props) {
+function FilterProjectsByInputModal(props) {
   const [searchTerm, setSearchTerm] = useState("");
 
   //Filters for priority and status
   function handleMultipleValues() {
     let returnArray = [];
-    for (const [key, value] of Object.entries(props.tickets)) {
+    for (const [key, value] of Object.entries(props.projects)) {
       if (value[props.filterBy[0]][props.filterBy[1]].includes(searchTerm)) {
         returnArray.push(value);
       }
     }
     if (returnArray.length >= 1) {
-      props.setTickets(returnArray);
+      props.setProjects(returnArray);
     } else {
       alert(
         `Sorry, None of our tickets authors have a ${props.filterBy[1]} that contain ${searchTerm}`
@@ -23,13 +23,13 @@ function FilterTicketsByInputModal(props) {
   //Filters for author name and ticket title
   function handleOneValue() {
     let returnArray = [];
-    for (const [key, value] of Object.entries(props.tickets)) {
+    for (const [key, value] of Object.entries(props.projects)) {
       if (value[props.filterBy[0]].includes(searchTerm)) {
         returnArray.push(value);
       }
     }
     if (returnArray.length >= 1) {
-      props.setTickets(returnArray);
+      props.setProjects(returnArray);
     } else {
       alert(
         `Sorry, None of our tickets have a ${props.filterBy[0]} that contains ${searchTerm}`
@@ -41,13 +41,13 @@ function FilterTicketsByInputModal(props) {
     let returnArray = [];
     let checkValue = searchTerm.toLowerCase();
     if (checkValue === "complete" || checkValue === "completed") {
-      for (const [key, value] of Object.entries(props.tickets)) {
+      for (const [key, value] of Object.entries(props.projects)) {
         if (value["is_completed"] === true) {
           returnArray.push(value);
         }
       }
     } else if (checkValue === "incomplete" || checkValue === "incompleted") {
-      for (const [key, value] of Object.entries(props.tickets)) {
+      for (const [key, value] of Object.entries(props.projects)) {
         if (value["is_completed"] === false) {
           returnArray.push(value);
         }
@@ -58,10 +58,10 @@ function FilterTicketsByInputModal(props) {
       );
     }
     if (returnArray.length >= 1) {
-      props.setTickets(returnArray);
+      props.setProjects(returnArray);
     } else {
       alert(
-        `Sorry, looks like none of our tickets have a status of ${searchTerm}`
+        `Sorry, looks like none of our projects have a status of ${searchTerm}`
       );
     }
   }
@@ -98,4 +98,4 @@ function FilterTicketsByInputModal(props) {
   );
 }
 
-export default FilterTicketsByInputModal;
+export default FilterProjectsByInputModal;

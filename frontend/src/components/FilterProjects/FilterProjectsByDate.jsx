@@ -1,19 +1,19 @@
 import { useState } from "react";
 
-function FilterTicketsByDateModal(props) {
+function FilterProjectsByDateModal(props) {
   const [searchDate, setsearchDate] = useState("");
 
   function handleSearch() {
     let returnArray = [];
-    for (const [key, value] of Object.entries(props.tickets)) {
-      if (value["date_time_created"] === searchDate) {
+    for (const [key, value] of Object.entries(props.projects)) {
+      if (value["date_created"] === searchDate) {
         returnArray.push(value);
       }
     }
     if (returnArray.length < 1) {
-      alert(`Sorry, None of our tickets have a date of ${searchDate}`);
+      alert(`Sorry, None of our projects have a date of ${searchDate}`);
     } else {
-      props.setTickets(returnArray);
+      props.setProjects(returnArray);
     }
   }
 
@@ -43,5 +43,4 @@ function FilterTicketsByDateModal(props) {
     </div>
   );
 }
-
-export default FilterTicketsByDateModal;
+export default FilterProjectsByDateModal;

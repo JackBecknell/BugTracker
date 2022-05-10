@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "./FilterTicketsStyles.css";
 
 function FilterTicketsByInputModal(props) {
   const [searchTerm, setSearchTerm] = useState("");

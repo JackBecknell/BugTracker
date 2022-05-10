@@ -1,9 +1,10 @@
 import { useState } from "react";
-import FilterTicketsByInputModal from "./FilterProjectsByInputModal";
-import FilterTicketsByDateModal from "./FilterProjectsByDateModal";
-import "./FilterTicketsStyles.css";
+//
+import FilterProjectsByInputModal from "./FilterProjectsByInputModal";
+import FilterProjectsByDateModal from "./FilterProjectsByDate";
+import "./FilterProjectsStyles.css";
 
-const FilterTickets = (props) => {
+const FilterProjects = (props) => {
   const [filterDateModalStatus, setFilterDateModalStatus] = useState(false);
   const [filterInputModalStatus, setFilterInputModalStatus] = useState(false);
 
@@ -14,18 +15,9 @@ const FilterTickets = (props) => {
   const [filterBy, setFilterBy] = useState("");
   const [modelButtonName, setModelButtonName] = useState("");
 
-  function handleClick(buttonName, dbQueryTrait, modalBtnName) {
-    console.log("noice");
-    // setFilterButtonName(buttonName);
-    // setModelButtonName(modalBtnName);
-    // setFilterInputModelStatus(true);
-    // setFilterButtonModalStatus(false);
-    // setFilterTrait(dbQueryTrait);
-  }
-
   //handles user clicking reset button refreshing the table
   function handleReset() {
-    props.reloadTickets(true);
+    props.reloadProjects(true);
     setFilterDateModalStatus(false);
     setFilterInputModalStatus(false);
     setFilterButtonName("CLICK TO ADD FILTER");
@@ -48,53 +40,27 @@ const FilterTickets = (props) => {
   return (
     <div className="filter-modal-fullcontainer">
       <div className="filter-and-modal">
-        <div>
-          {/* <button className="reset-btn" onClick={handleReset}>
-            RESET FILTER
-          </button> */}
-        </div>
+        <div></div>
         <div className="inputModal-dropDown">
           {filterInputModalStatus && (
-            <FilterTicketsByInputModal
+            <FilterProjectsByInputModal
               filterBy={filterBy}
-              tickets={props.tickets}
-              setTickets={props.setTickets}
+              projects={props.projects}
+              setProjects={props.setProjects}
               inputBoxPlaceHolder={inputBoxPlaceHolder}
               handleReset={handleReset}
             />
           )}
           {filterDateModalStatus && (
-            <FilterTicketsByDateModal
-              tickets={props.tickets}
-              setTickets={props.setTickets}
+            <FilterProjectsByDateModal
+              projects={props.projects}
+              setProjects={props.setProjects}
               handleReset={handleReset}
             />
           )}
           <div className="dropdown">
             <button className="dropbtn">{filterButtonName}</button>
             <div className="dropdown-content">
-              <button
-                onClick={() => {
-                  handleInputClick(
-                    "TICKET NAME",
-                    ["title"],
-                    "Search by ticket name..."
-                  );
-                }}
-              >
-                Ticket Name
-              </button>
-              <button
-                onClick={() => {
-                  handleInputClick(
-                    "PRIORITY",
-                    ["priority", "title"],
-                    "Search by priority..."
-                  );
-                }}
-              >
-                Priority
-              </button>
               <button
                 onClick={() => {
                   handleInputClick(
@@ -109,8 +75,19 @@ const FilterTickets = (props) => {
               <button
                 onClick={() => {
                   handleInputClick(
+                    "PROJECT TITLE",
+                    ["title"],
+                    "Search by project name..."
+                  );
+                }}
+              >
+                Project Title
+              </button>
+              <button
+                onClick={() => {
+                  handleInputClick(
                     "AUTHOR",
-                    ["author", "username"],
+                    ["project_author", "username"],
                     "Search by author..."
                   );
                 }}
@@ -127,18 +104,8 @@ const FilterTickets = (props) => {
             </div>
           </div>
         </div>
-        <div>
-          {/* {filterModelOpen && (
-            <FilterSongsModal
-              songs={props.songs}
-              trait={filterTrait}
-              buttonName={modelButtonName}
-              setDisplay={props.setDisplay}
-            />
-          )} */}
-        </div>
       </div>
     </div>
   );
 };
-export default FilterTickets;
+export default FilterProjects;

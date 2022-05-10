@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "./FilterTicketsStyles.css";
 
 function FilterTicketsByDateModal(props) {
   const [searchDate, setsearchDate] = useState("");

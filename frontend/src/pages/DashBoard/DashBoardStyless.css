@@ -29,6 +29,17 @@
   width: 65%;
 }
 
+.phead-filter {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.fltr-dateswitch {
+  display: flex;
+}
+
 .phead {
   display: flex;
 }
@@ -139,6 +150,19 @@
   border-color: rgba(0, 0, 0, 0.164);
 }
 
+.completed-project {
+  color: green;
+  width: 100%;
+  text-align: center;
+  border-style: solid;
+  border-left: none;
+  border-right: none;
+  border-bottom: none;
+  border-color: rgba(0, 0, 0, 0.164);
+  padding: 1rem;
+  width: 95%;
+}
+
 .description-cuttoff {
   border-style: solid;
   border-left: none;
@@ -155,4 +179,8 @@
   margin-bottom: 1%;
   font-size: smaller;
   color: rgb(82, 82, 82);
+}
+
+.fltr-dateswitch {
+  min-width: 650px;
 }
