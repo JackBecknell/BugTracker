@@ -9,64 +9,67 @@ import DeleteProject from "../../components/DeleteProject/DeleteProject";
 import "./ProjectStyles.css";
 
 const ProjectPage = (props) => {
-  //token is used for axios request
   const [user, token] = useAuth();
-  //
+
+  //axios return for project by id is stored here
   const [project, setProject] = useState([]);
+
+  //axios request for tickets by project id is stored here
   const [tickets, setTickets] = useState([]);
+
+  //projectStatus is used for both displaying text in place of a boolean field as well
+  //as styling that text
   const [projectStatus, setProjectStatus] = useState([]);
-  //!!!redundant useState below fixes error in reloading screen, will come back to troubleshoot later.!!!
   const [author, setAuthor] = useState([]);
   const { id } = useParams();
 
+  //useState requestReload is changed everytime the data needs to refresh
   const [requestReload, setRequestReload] = useState(true);
 
-  let reloadConditions = [id, requestReload];
-
-  //Every time a new project id is sent through parameters axios request is called.
+  //On change of id in params this useEffect triggers the one below
   useEffect(() => {
-    if (requestReload) {
-      const fetchProject = async () => {
-        let projectResponse;
-        let ticketsResponse;
-        try {
-          projectResponse = await axios.get(
-            `http://127.0.0.1:8000/api/projects/${id}/`,
-            {
-              headers: {
-                Authorization: "Bearer " + token,
-              },
-            }
-          );
-        } catch (error) {
-          console.log(error.message);
-        }
-        try {
-          ticketsResponse = await axios.get(
-            `http://127.0.0.1:8000/api/tickets/list/${id}/`,
-            {
-              headers: {
-                Authorization: "Bearer " + token,
-              },
-            }
-          );
-        } catch (error) {
-          console.log(error.message);
-        }
-        if (projectResponse.data.is_completed === true) {
-          setProjectStatus("Completed");
-        } else {
-          setProjectStatus("Incomplete");
-        }
-        setTickets(ticketsResponse.data);
-        setAuthor(projectResponse.data.project_author.username);
-        setProject(projectResponse.data);
-        setRequestReload(false);
-      };
-      fetchProject();
-      setRequestReload(false);
-    }
-  }, [reloadConditions]);
+    setRequestReload(!requestReload);
+  }, [id]);
+
+  useEffect(() => {
+    const fetchProject = async () => {
+      let projectResponse;
+      let ticketsResponse;
+      try {
+        projectResponse = await axios.get(
+          `http://127.0.0.1:8000/api/projects/${id}/`,
+          {
+            headers: {
+              Authorization: "Bearer " + token,
+            },
+          }
+        );
+      } catch (error) {
+        console.log(error.message);
+      }
+      try {
+        ticketsResponse = await axios.get(
+          `http://127.0.0.1:8000/api/tickets/list/${id}/`,
+          {
+            headers: {
+              Authorization: "Bearer " + token,
+            },
+          }
+        );
+      } catch (error) {
+        console.log(error.message);
+      }
+      if (projectResponse.data.is_completed === true) {
+        setProjectStatus("Completed");
+      } else {
+        setProjectStatus("Incomplete");
+      }
+      setTickets(ticketsResponse.data);
+      setAuthor(projectResponse.data.project_author.username);
+      setProject(projectResponse.data);
+    };
+    fetchProject();
+  }, [requestReload]);
 
   let table;
   if (tickets.length) {
@@ -137,6 +140,7 @@ const ProjectPage = (props) => {
                     <EditProject
                       project={project}
                       reloadProject={setRequestReload}
+                      reloadCondition={requestReload}
                     />
                   </div>
                   <div className="del-Container">
@@ -174,6 +178,7 @@ const ProjectPage = (props) => {
             <AddTicket
               projectId={project.id}
               reloadProject={setRequestReload}
+              reloadCondition={requestReload}
             />
           </div>
         )}

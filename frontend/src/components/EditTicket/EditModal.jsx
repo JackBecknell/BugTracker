@@ -51,7 +51,7 @@ function EditModel(props) {
           },
         }
       );
-      props.reloadTicket(true);
+      props.reloadTicket(!props.reloadCondition);
       props.setModalStatus(false);
     } catch (error) {
       console.log(error.message);

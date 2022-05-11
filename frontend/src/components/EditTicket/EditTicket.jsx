@@ -16,6 +16,7 @@ const EditTicket = (props) => {
           ticket={props.ticket}
           setModalStatus={setModalStatus}
           reloadTicket={props.reloadTicket}
+          reloadCondition={props.reloadCondition}
         />
       )}
     </div>

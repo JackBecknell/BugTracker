@@ -23,7 +23,7 @@ function EditProjectModal(props) {
           },
         }
       );
-      props.reloadProject(true);
+      props.reloadProject(!props.reloadCondition);
       props.setModalStatus(false);
     } catch (error) {
       console.log(error.message);
