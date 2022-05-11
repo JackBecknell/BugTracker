@@ -1,8 +1,19 @@
-/* This is to keep padding from auto shifing 40 px right for some reason */
+.no-space {
+  margin: 0%;
+  padding: 0%;
+}
+
 ul {
   padding-left: 0%;
 }
 
 .page {
   background-color: rgb(68, 68, 68);
+  margin: 0%;
+  padding: 0%;
+}
+
+#root {
+  padding: 0%;
+  margin: 0%;
 }

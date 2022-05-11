@@ -25,8 +25,7 @@ const ProjectPage = (props) => {
 
   //Every time a new project id is sent through parameters axios request is called.
   useEffect(() => {
-    if (requestReload === true) {
-      console.log("it ran");
+    if (requestReload) {
       const fetchProject = async () => {
         let projectResponse;
         let ticketsResponse;
@@ -66,8 +65,6 @@ const ProjectPage = (props) => {
       };
       fetchProject();
       setRequestReload(false);
-    } else {
-      console.log("it didn't run");
     }
   }, [reloadConditions]);
 
@@ -134,7 +131,7 @@ const ProjectPage = (props) => {
               <div className="project-head">
                 <h3>PROJECT : {project.title} </h3>
               </div>
-              {user.id == project.project_author.id ? (
+              {user.id === project.project_author.id ? (
                 <div className="edit-delete-container">
                   <div>
                     <EditProject
@@ -147,22 +144,32 @@ const ProjectPage = (props) => {
                   </div>
                 </div>
               ) : (
-                <div></div>
+                <div className="not-author-space"></div>
               )}
             </div>
           )}
         </div>
         {project.id && (
-          <div>
+          <div className="full-width-container">
             <div className="project-info-container">
-              <p>author</p>
-              <h3>{author}</h3>
-              <p>status</p>
-              <h3>{projectStatus}</h3>
-              <p>posted</p>
-              <h3>{project.date_created}</h3>
-              <p>description</p>
-              <h3>{project.description}</h3>
+              <div className="project-auth-status-date-box">
+                <div className="author-info-box">
+                  <p>AUTHOR</p>
+                  <h3>{author}</h3>
+                </div>
+                <div className="info-box">
+                  <p>STATUS</p>
+                  <h3 className={projectStatus}>{projectStatus}</h3>
+                </div>
+                <div className="info-box">
+                  <p>POSTED</p>
+                  <h3>{project.date_created}</h3>
+                </div>
+              </div>
+              <div className="project-description-box">
+                <p>DESCRIPTION</p>
+                <h3>{project.description}</h3>
+              </div>
             </div>
             <AddTicket
               projectId={project.id}

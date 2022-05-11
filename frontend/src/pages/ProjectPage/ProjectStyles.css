@@ -22,17 +22,84 @@
 }
 
 .project-container {
-  margin-bottom: auto;
+  margin-bottom: 5rem;
   margin-left: auto;
   margin-right: auto;
   width: 70%;
 }
+.full-width-container {
+  width: 100%;
+}
 
 .project-info-container {
+  display: flex;
   background-color: rgb(131, 131, 131);
   padding: 1rem;
   border-radius: 10px;
   min-width: 460px;
+}
+
+.info-box {
+  width: fit-content;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
+  color: rgba(0, 0, 0, 0.432);
+}
+
+.author-info-box {
+  width: fit-content;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.author-info-box h3 {
+  color: #006b9c;
+}
+
+.project-description-box {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  width: 100%;
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0.247);
+  border-right: none;
+  border-bottom: none;
+  border-top: none;
+  margin-left: 0%;
+  padding-left: 0%;
+}
+
+.project-description-box p {
+  text-align: center;
+  color: rgba(0, 0, 0, 0.452);
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0.247);
+  border-right: none;
+  border-left: none;
+  border-top: none;
+  margin-left: 0%;
+  padding-left: 0%;
+  margin-bottom: 0%;
+}
+
+.project-description-box h3 {
+  padding-left: 0.5rem;
+  font-size: medium;
+}
+
+.project-auth-status-date-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  min-width: 50%;
+  text-align: center;
+}
+
+.project-auth-status-date-box P {
+  color: rgba(0, 0, 0, 0.452);
 }
 
 .ticket-table {
@@ -103,4 +170,16 @@ tbody tr:nth-child(even) {
 .ticketstext-addbtn-container button:hover {
   border-top-right-radius: 8px;
   background-color: rgb(72, 255, 72);
+}
+
+.not-author-space {
+  height: 22.88px;
+}
+
+.Incomplete {
+  color: rgb(255, 115, 115);
+}
+
+.Completed {
+  color: rgb(102, 212, 92);
 }
