@@ -40,7 +40,7 @@ function AddTicketModel(props) {
           Authorization: "Bearer " + token,
         },
       });
-      props.reloadProject(true);
+      props.reloadProject(!props.reloadCondition);
       navigate(`/projectPage/${props.projectId}`);
       props.setModalStatus(false);
     } catch (error) {

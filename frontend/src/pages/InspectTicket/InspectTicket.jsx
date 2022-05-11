@@ -26,45 +26,44 @@ const InspectTicketPage = (props) => {
   const [comments, setComments] = useState([]);
   const [requestReload, setRequestReload] = useState(true);
 
-  let reloadConditions = [id, requestReload];
+  //On change of id in params this useEffect triggers the one below
+  useEffect(() => {
+    setRequestReload(!requestReload);
+  }, [id]);
 
   useEffect(() => {
-    if (requestReload === true) {
-      const fetchTicket = async () => {
-        let ticketResponse;
-        let commentsResponse;
-        try {
-          ticketResponse = await axios.get(
-            `http://127.0.0.1:8000/api/tickets/${id}/`,
-            {
-              headers: {
-                Authorization: "Bearer " + token,
-              },
-            }
-          );
-          setTicket(ticketResponse.data);
-        } catch (error) {
-          console.log(error.message);
-        }
-        try {
-          commentsResponse = await axios.get(
-            `http://127.0.0.1:8000/api/comments/${id}/`,
-            {
-              headers: {
-                Authorization: "Bearer " + token,
-              },
-            }
-          );
-          setComments(commentsResponse.data);
-          setRequestReload(false);
-        } catch (error) {
-          console.log(error.message);
-        }
-      };
-      fetchTicket();
-      setRequestReload(false);
-    }
-  }, [reloadConditions]);
+    const fetchTicket = async () => {
+      let ticketResponse;
+      let commentsResponse;
+      try {
+        ticketResponse = await axios.get(
+          `http://127.0.0.1:8000/api/tickets/${id}/`,
+          {
+            headers: {
+              Authorization: "Bearer " + token,
+            },
+          }
+        );
+        setTicket(ticketResponse.data);
+      } catch (error) {
+        console.log(error.message);
+      }
+      try {
+        commentsResponse = await axios.get(
+          `http://127.0.0.1:8000/api/comments/${id}/`,
+          {
+            headers: {
+              Authorization: "Bearer " + token,
+            },
+          }
+        );
+        setComments(commentsResponse.data);
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+    fetchTicket();
+  }, [requestReload]);
 
   //conditional rendering for bool field in ticket.
   let status;
@@ -85,7 +84,7 @@ const InspectTicketPage = (props) => {
           },
         }
       );
-      setRequestReload(true);
+      setRequestReload(!requestReload);
     } catch (error) {
       console.log(error.message);
     }
@@ -185,12 +184,12 @@ const InspectTicketPage = (props) => {
                     <EditTicket
                       ticket={ticket}
                       reloadTicket={setRequestReload}
+                      reloadCondition={requestReload}
                     />
                   </div>
                   <div className="del-Container">
                     <DeleteTicket
                       ticket={ticket}
-                      reloadTicket={setRequestReload}
                       projectId={props.projectId}
                       comingFrom={comingFrom}
                     />

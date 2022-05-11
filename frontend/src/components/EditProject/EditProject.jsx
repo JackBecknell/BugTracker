@@ -16,6 +16,7 @@ const EditProject = (props) => {
           project={props.project}
           setModalStatus={setModalStatus}
           reloadProject={props.reloadProject}
+          reloadCondition={props.reloadCondition}
         />
       )}
     </div>
