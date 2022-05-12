@@ -8,6 +8,7 @@
   flex-direction: column;
   background-color: rgb(90, 89, 89);
   margin-left: 10px;
+  margin-top: 95px;
 }
 
 .column h3 {
@@ -27,7 +28,7 @@
 .project-box {
   display: flex;
   flex-direction: column;
-  background-color: rgb(134, 134, 134);
+  background-color: rgb(207, 207, 207);
   padding: 5px;
   padding-right: 0%;
   width: 90%;
@@ -48,7 +49,7 @@
 .ticket-container {
   display: flex;
   flex-direction: column;
-  background-color: rgb(134, 134, 134);
+  background-color: rgb(207, 207, 207);
   padding: 5px;
   padding-right: 0%;
   width: 90%;
@@ -71,15 +72,43 @@
 }
 
 .edit {
-  background-color: rgb(211, 211, 211);
+  color: white;
+  background-color: rgb(156, 156, 156);
   float: right;
+  border-style: none;
 }
 
 .delete {
-  background-color: rgb(255, 0, 0);
+  color: rgb(255, 160, 160);
+  background-color: rgb(160, 0, 0);
   float: right;
+  border-style: none;
 }
 
 .submit {
-  background-color: rgb(26, 158, 0);
+  background-color: rgb(94, 148, 83);
+  border-style: none;
+  height: 100%;
+  border-radius: 1px;
+  color: rgb(169, 255, 143);
+}
+
+.reset-queries-container {
+  margin-left: 10px;
+  margin-top: 10px;
+}
+
+.reset-queries-container button {
+  width: 85px;
+  height: 85px;
+  border-radius: 100%;
+  font-weight: bold;
+  transition: 500ms;
+  background-color: rgb(136, 136, 226);
+}
+
+.reset-queries-container button:hover {
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  background-color: rgb(106, 106, 224);
 }

@@ -19,32 +19,46 @@ const LoginPage = () => {
   }, [isServerError]);
 
   return (
-    <div className="container">
-      <form className="form" onSubmit={handleSubmit}>
-        <label>
-          Username:{" "}
-          <input
-            type="text"
-            name="username"
-            value={formData.username}
-            onChange={handleInputChange}
-          />
-        </label>
-        <label>
-          Password:{" "}
-          <input
-            type="text"
-            name="password"
-            value={formData.password}
-            onChange={handleInputChange}
-          />
-        </label>
-        {isServerError ? (
-          <p className="error">Login failed, incorrect credentials!</p>
-        ) : null}
-        <Link to="/register">Click to register!</Link>
-        <button className="dfaultButton">Login!</button>
-      </form>
+    <div className="login-page-background">
+      <div className="login-img">
+        <div className="login-container">
+          <div>
+            <h1>LOGIN</h1>
+          </div>
+          <form className="form" onSubmit={handleSubmit}>
+            <label>
+              <h3>USERNAME</h3>
+              <input
+                type="text"
+                name="username"
+                value={formData.username}
+                onChange={handleInputChange}
+              />
+            </label>
+            <label>
+              <h3>PASSWORD</h3>
+              <input
+                type="text"
+                name="password"
+                value={formData.password}
+                onChange={handleInputChange}
+              />
+            </label>
+            {isServerError ? (
+              <p className="error">Login failed, incorrect credentials!</p>
+            ) : null}
+
+            <div className="signIn">
+              <button className="dfaultButton">SIGN IN</button>
+            </div>
+            <div className="register-link" style={{ textDecoration: "none" }}>
+              <Link to="/register">
+                <p>REGISTER</p>
+              </Link>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
   );
 };

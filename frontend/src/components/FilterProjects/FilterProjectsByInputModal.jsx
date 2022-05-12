@@ -15,12 +15,12 @@ function FilterProjectsByInputModal(props) {
       props.setProjects(returnArray);
     } else {
       alert(
-        `Sorry, None of our tickets authors have a ${props.filterBy[1]} that contain ${searchTerm}`
+        `Sorry, None of our projects authors have a ${props.filterBy[1]} that contain ${searchTerm}`
       );
     }
   }
 
-  //Filters for author name and ticket title
+  //Filters for author name and project title
   function handleOneValue() {
     let returnArray = [];
     for (const [key, value] of Object.entries(props.projects)) {
@@ -32,7 +32,7 @@ function FilterProjectsByInputModal(props) {
       props.setProjects(returnArray);
     } else {
       alert(
-        `Sorry, None of our tickets have a ${props.filterBy[0]} that contains ${searchTerm}`
+        `Sorry, None of our projects have a ${props.filterBy[0]} that contains ${searchTerm}`
       );
     }
   }
@@ -61,7 +61,7 @@ function FilterProjectsByInputModal(props) {
       props.setProjects(returnArray);
     } else {
       alert(
-        `Sorry, looks like none of our projects have a status of ${searchTerm}`
+        `Sorry, looks like none of our tickets have a status of ${searchTerm}`
       );
     }
   }

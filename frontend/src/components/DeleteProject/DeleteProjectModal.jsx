@@ -20,7 +20,12 @@ function DeleteProjectModal(props) {
           },
         }
       );
-      navigate(`/`);
+      if (props.isAdmin) {
+        props.setModalStatus(false);
+        props.reloadPage(!props.reloadCondition);
+      } else {
+        navigate(`/`);
+      }
     } catch (error) {
       console.log(error.message);
     }

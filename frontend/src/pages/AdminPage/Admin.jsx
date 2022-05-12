@@ -20,41 +20,33 @@ const AdminPage = (props) => {
 
   const [projects, setProjects] = useState([]);
   const [tickets, setTickets] = useState([]);
-  const [users, setUsers] = useState([
-    "TEST DATA TEST DATA",
-    "TEST DATA TEST DATA",
-    "TEST DATA TEST DATA",
-    "TEST DATA TEST DATA",
-    "TEST DATA TEST DATA",
-    "TEST DATA TEST DATA",
-    "TEST DATA TEST DATA",
-    "TEST DATA TEST DATA",
-  ]);
+  //const [users, setUsers] = useState([]);
+
   const [requestReload, setRequestReload] = useState(true);
   const [user, token] = useAuth();
 
-  let projectsConfirimation;
-  if (projects.length >= 1) {
-    projectsConfirimation = true;
-  } else {
-    projectsConfirimation = false;
-  }
+  //first useState contains current project/ticket to be edited, the second project/ticket to be deleted
+  const [editValue, setEditValue] = useState([]);
+  const [deleteValue, setDeleteValue] = useState([]);
 
-  let ticketsConfirimation;
-  if (tickets.length >= 1) {
-    ticketsConfirimation = true;
-  } else {
-    ticketsConfirimation = false;
+  //values from projects/tickets search bars.
+  const [projectsUserInput, setProjectsUserInput] = useState("");
+  const [ticketsUserInput, setTicketsUserInput] = useState("");
+  //function ensures projects and tickets contain value before
+  //return statment tries to map.
+  function confirmRender(requestData) {
+    if (requestData.length >= 1) {
+      return true;
+    } else {
+      return false;
+    }
   }
+  let projectsConfirimation = confirmRender(projects);
+  let ticketsConfirimation = confirmRender(tickets);
 
-  let usersConfirimation;
-  if (projects.length >= 1) {
-    ticketsConfirimation = true;
-  } else {
-    ticketsConfirimation = false;
-  }
+  //VVV ONLY IF WE FIGURE OUT EDITING FOR USERS
+  // let usersConfirimation = confirmRender(projects)
 
-  //http://127.0.0.1:8000/api/tickets/
   useEffect(() => {
     const fetchProjects = async () => {
       let projectResponse;
@@ -89,13 +81,78 @@ const AdminPage = (props) => {
     fetchProjects();
   }, [requestReload]);
 
+  function handleDeleteClick(value, modalDef) {
+    setDeleteValue(value);
+    if (modalDef === "projects") {
+      setDeleteProjectModalStatus(true);
+    } else if (modalDef === "tickets") {
+      setDeleteTicketModalStatus(true);
+    }
+  }
+
+  function handleEditClick(value, modalDef) {
+    setEditValue(value);
+    if (modalDef === "projects") {
+      setEditProjectModalStatus(true);
+    } else if (modalDef === "tickets") {
+      setEditTicketModalStatus(true);
+    }
+  }
+
+  function searchAndSet(values, userInput, type) {
+    let returnArray = [];
+    for (const [key, value] of Object.entries(values)) {
+      let dbValue = value["title"].toLowerCase();
+      let inputCheck = userInput.toLowerCase();
+      if (dbValue.includes(inputCheck)) {
+        returnArray.push(value);
+      }
+    }
+    if (type === "projects") {
+    }
+    if (returnArray.length >= 1) {
+      if (type === "projects") {
+        setProjects(returnArray);
+      } else if (type === "tickets") {
+        setTickets(returnArray);
+      }
+    } else {
+      alert(
+        `Sorry, None of our ${type} have a title that contains ${userInput}`
+      );
+    }
+  }
+
+  function handleProjectsSubmit(event) {
+    event.preventDefault();
+    searchAndSet(projects, projectsUserInput, "projects");
+  }
+
+  function handleTicketsSubmit(event) {
+    event.preventDefault();
+    searchAndSet(tickets, ticketsUserInput, "tickets");
+  }
+
   return (
     <div className="admin-page-container">
       <NavBar />
+      <div className="reset-queries-container">
+        <button onClick={() => setRequestReload(!requestReload)}>
+          RESET
+          <br />
+          QUERIES
+        </button>
+      </div>
+
       <div className="column">
         <h3>PROJECTS</h3>
-        <form>
-          <input type="text"></input>
+        <form onSubmit={handleProjectsSubmit}>
+          <input
+            type="text"
+            placeholder="Search projects by title..."
+            value={projectsUserInput}
+            onChange={(event) => setProjectsUserInput(event.target.value)}
+          ></input>
           <button className="submit" type="submit">
             SUBMIT
           </button>
@@ -104,21 +161,37 @@ const AdminPage = (props) => {
           projects.map((project, i) => (
             <div className="project-box">
               <div className="buttons">
-                <button className="delete">X</button>
+                <button
+                  className="delete"
+                  type="button"
+                  key={i}
+                  onClick={() => handleDeleteClick(project, "projects")}
+                >
+                  X
+                </button>
                 {deleteProjectModalStatus && (
                   <DeleteProjectModal
                     project={project}
                     setModalStatus={setDeleteProjectModalStatus}
+                    reloadPage={setRequestReload}
+                    reloadCondition={requestReload}
+                    isAdmin={true}
                   />
                 )}
-                <button className="edit">EDIT</button>
+                <button
+                  className="edit"
+                  onClick={() => handleEditClick(project, "projects")}
+                  type="button"
+                  key={i}
+                >
+                  EDIT
+                </button>
                 {editProjectModalStatus && (
                   <EditProjectModal
-                    project={project}
-                    // You left off here, you ran into the problem that bothe edit modals and
-                    //delete modales are only situated for project page and inspect ticket page
-                    //you need to pass down information to inform the modals where you are using them
-                    //from and conditionally make each perform the right action.
+                    project={editValue}
+                    setModalStatus={setEditProjectModalStatus}
+                    reloadProject={setRequestReload}
+                    reloadCondition={requestReload}
                   />
                 )}
               </div>
@@ -135,8 +208,13 @@ const AdminPage = (props) => {
       </div>
       <div className="column">
         <h3>TICKETS</h3>
-        <form>
-          <input type="text"></input>
+        <form onSubmit={handleTicketsSubmit}>
+          <input
+            type="text"
+            placeholder="Search tickets by title..."
+            value={ticketsUserInput}
+            onChange={(event) => setTicketsUserInput(event.target.value)}
+          ></input>
           <button className="submit" type="submit">
             SUBMIT
           </button>
@@ -145,8 +223,38 @@ const AdminPage = (props) => {
           tickets.map((ticket, i) => (
             <div className="ticket-container">
               <div className="buttons">
-                <button className="delete">X</button>
-                <button className="edit">EDIT</button>
+                <button
+                  className="delete"
+                  type="button"
+                  key={i}
+                  onClick={() => handleDeleteClick(ticket, "tickets")}
+                >
+                  X
+                </button>
+                {deleteTicketModalStatus && (
+                  <DeleteModal
+                    ticket={ticket}
+                    setModalStatus={setDeleteTicketModalStatus}
+                    reloadPage={setRequestReload}
+                    reloadCondition={requestReload}
+                    isAdmin={true}
+                  />
+                )}
+                <button
+                  className="edit"
+                  onClick={() => handleEditClick(ticket, "tickets")}
+                  type="button"
+                >
+                  EDIT
+                </button>
+                {editTicketModalStatus && (
+                  <EditModel
+                    ticket={editValue}
+                    setModalStatus={setEditTicketModalStatus}
+                    reloadTicket={setRequestReload}
+                    reloadCondition={requestReload}
+                  />
+                )}
               </div>
               <div className="ticket-info-box">
                 <h4>{ticket.title}</h4>

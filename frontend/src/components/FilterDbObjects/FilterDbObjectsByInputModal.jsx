@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./FilterTicketsStyles.css";
 
-function FilterTicketsByInputModal(props) {
+function FilterObjectsByInputModal(props) {
   const [searchTerm, setSearchTerm] = useState("");
 
   //Filters for priority and status
@@ -104,4 +104,4 @@ function FilterTicketsByInputModal(props) {
   );
 }
 
-export default FilterTicketsByInputModal;
+export default FilterObjectsByInputModal;

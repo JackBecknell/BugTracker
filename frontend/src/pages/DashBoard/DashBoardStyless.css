@@ -5,11 +5,6 @@
 }
 
 .projects-container {
-  /* background-image: url("../../media/algorithm.png");
-  background-repeat: repeat-y;
-  background-position: center;
-  background-position: top;
-  background-size: contain;*/
   margin-bottom: auto;
   margin-left: auto;
   margin-right: auto;
@@ -40,6 +35,22 @@
   display: flex;
 }
 
+.dateSwtch button {
+  background-color: #0084ff;
+  color: white;
+  border-top: none;
+  border-bottom: none;
+  border-right: none;
+  border-color: #0657a3;
+  height: 100%;
+  width: 5rem;
+}
+
+.dateSwtch button:hover {
+  background-color: #0070d8;
+  cursor: pointer;
+}
+
 .phead {
   display: flex;
 }
@@ -48,8 +59,15 @@
   display: table-cell;
   min-width: fit-content;
   height: fit-content;
-  background-color: rgb(0, 0, 0);
-  color: rgb(177, 177, 177);
+  background: linear-gradient(
+    to right top,
+    #0063be,
+    #0084ff,
+    #1f93ff,
+    #309bff,
+    #3ca1ff
+  );
+  color: rgb(0, 0, 0);
   padding: 6px;
   margin-top: 0%;
   text-align: center;

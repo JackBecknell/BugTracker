@@ -3,7 +3,8 @@
   height: 2rem;
   font-size: x-large;
   border-radius: 100%;
-  background-color: rgb(146, 146, 146);
+  background-color: #006fd6;
+  border-style: none;
   margin-left: 5px;
   border-width: 1px;
   transition: 1000ms;
@@ -11,7 +12,7 @@
 
 .projects-addbtn-container button:hover {
   border: none;
-  background-color: rgb(10, 201, 10);
+  background: rgb(10, 201, 10);
   cursor: pointer;
   color: rgb(0, 0, 0);
 }

@@ -17,59 +17,78 @@ const RegisterPage = () => {
   );
 
   return (
-    <div className="container">
-      <form className="form" onSubmit={handleSubmit}>
-        <label>
-          Username:{" "}
-          <input
-            type="text"
-            name="username"
-            value={formData.username}
-            onChange={handleInputChange}
-          />
-        </label>
-        <label>
-          First Name:{" "}
-          <input
-            type="text"
-            name="firstName"
-            value={formData.firstName}
-            onChange={handleInputChange}
-          />
-        </label>
-        <label>
-          Last Name:{" "}
-          <input
-            type="text"
-            name="lastName"
-            value={formData.lastName}
-            onChange={handleInputChange}
-          />
-        </label>
-        <label>
-          Email:{" "}
-          <input
-            type="text"
-            name="email"
-            value={formData.email}
-            onChange={handleInputChange}
-          />
-        </label>
-        <label>
-          Password:{" "}
-          <input
-            type="text"
-            name="password"
-            value={formData.password}
-            onChange={handleInputChange}
-          />
-        </label>
-        <p style={{ fontSize: "12px" }}>
-          NOTE: Make this an uncommon password with characters, numbers, and
-          special characters!
-        </p>
-        <button>Register!</button>
-      </form>
+    <div className="login-page-background">
+      <div className="login-img">
+        <form onSubmit={handleSubmit}>
+          <div className="register-user-container">
+            <div>
+              <h1>REGISTER</h1>
+            </div>
+            <div className="input-boxes">
+              <div>
+                <label>
+                  Username:{" "}
+                  <input
+                    type="text"
+                    name="username"
+                    value={formData.username}
+                    onChange={handleInputChange}
+                  />
+                </label>
+              </div>
+              <div>
+                <label>
+                  First Name:{" "}
+                  <input
+                    type="text"
+                    name="firstName"
+                    value={formData.firstName}
+                    onChange={handleInputChange}
+                  />
+                </label>
+              </div>
+              <div>
+                <label>
+                  Last Name:{" "}
+                  <input
+                    type="text"
+                    name="lastName"
+                    value={formData.lastName}
+                    onChange={handleInputChange}
+                  />
+                </label>
+              </div>
+              <div>
+                <label>
+                  Email:{" "}
+                  <input
+                    type="text"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                  />
+                </label>
+              </div>
+              <div>
+                <label>
+                  Password:{" "}
+                  <input
+                    type="text"
+                    name="password"
+                    value={formData.password}
+                    onChange={handleInputChange}
+                  />
+                </label>
+              </div>
+            </div>
+            <p style={{ fontSize: "12px" }}>
+              NOTE: Make this an uncommon password with characters, numbers, and
+              special characters!
+            </p>
+            <button>Register!</button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };

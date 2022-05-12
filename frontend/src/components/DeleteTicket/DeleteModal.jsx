@@ -20,7 +20,10 @@ function DeleteModal(props) {
           },
         }
       );
-      if (props.comingFrom === "Projects.jsx") {
+      if (props.isAdmin) {
+        props.reloadPage(!props.reloadCondition);
+        props.setModalStatus(false);
+      } else if (props.comingFrom === "Projects.jsx") {
         navigate(`/projectPage/${props.projectId}`);
       } else if (props.comingFrom === "Tickets.jsx") {
         navigate("/ticketsPage");

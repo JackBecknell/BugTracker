@@ -64,7 +64,9 @@ const DashBoard = (props) => {
           projects={projects}
           setProjects={setProjects}
         />
-        <button onClick={handleProjectsMap}>{dateSwitchText}</button>
+        <div className="dateSwtch">
+          <button onClick={handleProjectsMap}>{dateSwitchText}</button>
+        </div>
       </div>
     );
   } else {

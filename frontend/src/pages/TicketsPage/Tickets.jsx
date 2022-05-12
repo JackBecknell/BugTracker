@@ -10,9 +10,20 @@ import FilterTickets from "../../components/FilterTickets/FilterTickets";
 const TicketsPage = (props) => {
   const [user, token] = useAuth();
   const [tickets, setTickets] = useState([]);
+  const [dateSwitchText, setDateSwitchText] = useState("VIEW BY NEWEST");
   const [requestReload, setRequestReload] = useState(true);
 
   let reloadConditions = [token, requestReload];
+
+  function handleTicketsMap() {
+    let newTickets = tickets.reverse();
+    setTickets(newTickets);
+    if (dateSwitchText === "VIEW BY NEWEST") {
+      setDateSwitchText("VIEW BY OLDEST");
+    } else if (dateSwitchText === "VIEW BY OLDEST") {
+      setDateSwitchText("VIEW BY NEWEST");
+    }
+  }
 
   useEffect(() => {
     if (requestReload) {
@@ -96,11 +107,16 @@ const TicketsPage = (props) => {
         <div className="tickets-head">
           <h3>TICKETS</h3>
         </div>
-        <FilterTickets
-          tickets={tickets}
-          setTickets={setTickets}
-          reloadTickets={setRequestReload}
-        />
+        <div className="fltr-dateswitch">
+          <FilterTickets
+            tickets={tickets}
+            setTickets={setTickets}
+            reloadTickets={setRequestReload}
+          />
+          <div className="dateSwtch">
+            <button onClick={handleTicketsMap}>{dateSwitchText}</button>
+          </div>
+        </div>
         {table}
       </div>
     </div>
