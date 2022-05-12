@@ -58,6 +58,7 @@ class TicketAuthListByProjectId(APIView, IsAuthenticated):
         serializer = TicketSerializer(tickets, many=True)
         return Response(serializer.data)
 
+# Both endpoints below are un-used by the front-end but will be incorporated next sprint.
 class TicketAuthAddAssigned(APIView, IsAuthenticated):
     def put(self, request, ticket_id):
         ticket = Ticket.objects.get(id=ticket_id)
