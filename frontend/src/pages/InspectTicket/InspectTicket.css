@@ -8,8 +8,15 @@
   display: table-cell;
   min-width: fit-content;
   height: fit-content;
-  background-color: rgb(0, 0, 0);
-  color: rgb(177, 177, 177);
+  color: rgb(0, 0, 0);
+  background: linear-gradient(
+    to right top,
+    #8b22db,
+    #a32fdd,
+    #b63cd8,
+    #cc4fdd,
+    #e45fe4
+  );
   padding: 6px;
   margin-top: 0%;
   text-align: center;
@@ -29,33 +36,130 @@
 }
 
 .ticket-info-container {
+  display: flex;
   background-color: rgb(131, 131, 131);
   padding: 1rem;
   border-radius: 25px;
 }
 
+.ticket-info-container p {
+  color: rgba(0, 0, 0, 0.452);
+}
+
+.info-row {
+  display: flex;
+  width: 100%;
+  justify-content: space-evenly;
+  height: 100%;
+  align-items: center;
+  text-align: center;
+}
+
+.info-column {
+  text-align: center;
+}
+
+.author-text {
+  color: #000000;
+}
+
+.border-bottom-top {
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0.247);
+  border-left: none;
+  border-right: none;
+  border-top: none;
+}
+
+.ticket-info-half-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  min-width: 50%;
+  align-items: center;
+}
+
+.ticket-descrip-box {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  width: 100%;
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0.247);
+  border-right: none;
+  border-bottom: none;
+  border-top: none;
+  margin: 0%;
+  height: 100%;
+}
+
+.ticket-descrip-box h3 {
+  padding: 1%;
+  margin-top: 0%;
+}
+
+.ticket-descrip-box p {
+  margin-bottom: 0%;
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0.247);
+  border-right: none;
+  border-left: none;
+  border-top: none;
+  text-align: center;
+  padding-bottom: 2%;
+}
+
 .comment-box {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
   width: 65%;
   min-width: 30rem;
   height: fit-content;
   margin-bottom: 3rem;
-  border-color: rgba(0, 0, 0, 0.233);
+  border-width: 4px;
   border-style: solid;
-  border-left: none;
-  border-right: none;
-  border-bottom: none;
+  border-image: linear-gradient(
+      to right,
+      rgb(0, 0, 0),
+      rgb(0, 0, 0),
+      #300055,
+      #6c1a77,
+      rgba(153, 50, 204, 0)
+    )
+    1;
 }
 .comment-box p {
   overflow: clip;
-  color: rgb(214, 214, 214);
+  color: rgb(197, 197, 197);
+  padding-left: 10px;
+  letter-spacing: 1px;
 }
 
 .comment-box h4 {
-  color: rgb(255, 137, 137);
+  color: rgb(137, 164, 255);
+  padding-left: 30px;
+  margin-bottom: 0%;
 }
 
 .view-comments-btn {
-  margin-top: 2rem;
+  margin-top: 1rem;
+  background: transparent;
+  border: 2px solid;
+  background-color: #303030;
+  border-image: linear-gradient(
+      to top right,
+      #000000,
+      #2b2b2b,
+      #525252,
+      #b4b4b4,
+      #ffffff
+    )
+    1;
+  color: #929292;
+  font-weight: bold;
+  letter-spacing: 1px;
+  padding: 0.4rem 0.5rem;
 }
 
 .edit-delete-container {
@@ -70,4 +174,29 @@
 
 .viewComments-container {
   margin-bottom: 5rem;
+  margin-left: 5%;
+}
+
+.viewComments-container textarea {
+  margin-top: 1rem;
+  max-width: 40%;
+  min-width: 20rem;
+  background-color: #b8b8b8;
+  border-radius: 7px;
+  border: none;
+}
+
+.toggle-txtarea-post {
+  display: flex;
+  flex-direction: column;
+}
+
+.txtarea-post form {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2rem;
+}
+
+.txtarea-post form button {
+  width: fit-content;
 }

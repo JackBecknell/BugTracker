@@ -1,27 +1,30 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
-import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import NavBar from "../../components/NavBar/NavBar";
 import DeleteProjectModal from "../../components/DeleteProject/DeleteProjectModal";
 import EditProjectModal from "../../components/EditProject/EditProjectModal";
 import DeleteModal from "../../components/DeleteTicket/DeleteModal";
 import EditModel from "../../components/EditTicket/EditModal";
+import AdminUserAuthModal from "../../components/AdminUserAuthModal/AdminUserAuthModal";
 import "./AdminStyles.css";
 
 const AdminPage = (props) => {
   //Below are all useState variable controlling modals
+  const [editUserAuthModal, setEditUserAuthModal] = useState(false);
   const [editProjectModalStatus, setEditProjectModalStatus] = useState(false);
   const [deleteProjectModalStatus, setDeleteProjectModalStatus] =
     useState(false);
   const [editTicketModalStatus, setEditTicketModalStatus] = useState(false);
   const [deleteTicketModalStatus, setDeleteTicketModalStatus] = useState(false);
 
+  //useStates hold all data for all columns
   const [projects, setProjects] = useState([]);
   const [tickets, setTickets] = useState([]);
-  //const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState([]);
 
+  //requestReload is switched to !requestReload to trigger  axios requests for all data
   const [requestReload, setRequestReload] = useState(true);
   const [user, token] = useAuth();
 
@@ -29,9 +32,11 @@ const AdminPage = (props) => {
   const [editValue, setEditValue] = useState([]);
   const [deleteValue, setDeleteValue] = useState([]);
 
-  //values from projects/tickets search bars.
+  //values from projects/tickets/Users search bars.
   const [projectsUserInput, setProjectsUserInput] = useState("");
   const [ticketsUserInput, setTicketsUserInput] = useState("");
+  const [usersUserInput, setUsersUserInput] = useState("");
+
   //function ensures projects and tickets contain value before
   //return statment tries to map.
   function confirmRender(requestData) {
@@ -41,8 +46,9 @@ const AdminPage = (props) => {
       return false;
     }
   }
-  let projectsConfirimation = confirmRender(projects);
-  let ticketsConfirimation = confirmRender(tickets);
+  let projectsConfirmation = confirmRender(projects);
+  let ticketsConfirmation = confirmRender(tickets);
+  let usersConfirmation = confirmRender(users);
 
   //VVV ONLY IF WE FIGURE OUT EDITING FOR USERS
   // let usersConfirimation = confirmRender(projects)
@@ -51,6 +57,7 @@ const AdminPage = (props) => {
     const fetchProjects = async () => {
       let projectResponse;
       let ticketsResponse;
+      let usersResponse;
       try {
         projectResponse = await axios.get(
           "http://127.0.0.1:8000/api/projects/",
@@ -77,6 +84,16 @@ const AdminPage = (props) => {
       } catch (error) {
         console.log(error.message);
       }
+      try {
+        usersResponse = await axios.get("http://127.0.0.1:8000/api/auth/all/", {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        });
+        setUsers(usersResponse.data);
+      } catch (error) {
+        console.log(error.message);
+      }
     };
     fetchProjects();
   }, [requestReload]);
@@ -96,25 +113,33 @@ const AdminPage = (props) => {
       setEditProjectModalStatus(true);
     } else if (modalDef === "tickets") {
       setEditTicketModalStatus(true);
+    } else if (modalDef === "users") {
+      setEditUserAuthModal(true);
     }
   }
 
   function searchAndSet(values, userInput, type) {
     let returnArray = [];
+    let checkBy;
+    if (type === "users") {
+      checkBy = "username";
+    } else {
+      checkBy = "title";
+    }
     for (const [key, value] of Object.entries(values)) {
-      let dbValue = value["title"].toLowerCase();
+      let dbValue = value[checkBy].toLowerCase();
       let inputCheck = userInput.toLowerCase();
       if (dbValue.includes(inputCheck)) {
         returnArray.push(value);
       }
-    }
-    if (type === "projects") {
     }
     if (returnArray.length >= 1) {
       if (type === "projects") {
         setProjects(returnArray);
       } else if (type === "tickets") {
         setTickets(returnArray);
+      } else if (type === "users") {
+        setUsers(returnArray);
       }
     } else {
       alert(
@@ -133,6 +158,10 @@ const AdminPage = (props) => {
     searchAndSet(tickets, ticketsUserInput, "tickets");
   }
 
+  function handleUsersSubmit(event) {
+    event.preventDefault();
+    searchAndSet(users, usersUserInput, "users");
+  }
   return (
     <div className="admin-page-container">
       <NavBar />
@@ -157,7 +186,7 @@ const AdminPage = (props) => {
             SUBMIT
           </button>
         </form>
-        {projectsConfirimation &&
+        {projectsConfirmation &&
           projects.map((project, i) => (
             <div className="project-box">
               <div className="buttons">
@@ -219,7 +248,7 @@ const AdminPage = (props) => {
             SUBMIT
           </button>
         </form>
-        {ticketsConfirimation &&
+        {ticketsConfirmation &&
           tickets.map((ticket, i) => (
             <div className="ticket-container">
               <div className="buttons">
@@ -263,6 +292,46 @@ const AdminPage = (props) => {
                 ) : (
                   <p>INCOMPLETE</p>
                 )}
+              </div>
+            </div>
+          ))}
+      </div>
+      <div className="column">
+        <h3>USERS</h3>
+        <form onSubmit={handleUsersSubmit}>
+          <input
+            type="text"
+            placeholder="Search users by username..."
+            value={usersUserInput}
+            onChange={(event) => setUsersUserInput(event.target.value)}
+          ></input>
+          <button className="submit" type="submit">
+            SUBMIT
+          </button>
+        </form>
+        {usersConfirmation &&
+          users.map((user, i) => (
+            <div key={i} className="ticket-container">
+              <div className="buttons">
+                <button
+                  className="edit"
+                  onClick={() => handleEditClick(user, "users")}
+                  type="button"
+                >
+                  EDIT
+                </button>
+                {editUserAuthModal && (
+                  <AdminUserAuthModal
+                    editUser={editValue}
+                    reloadPage={setRequestReload}
+                    reloadCondition={requestReload}
+                    setModalStatus={setEditUserAuthModal}
+                  />
+                )}
+              </div>
+              <div className="ticket-info-box">
+                <h4>{user.username}</h4>
+                {user.is_staff === true ? <p>ADMIN</p> : <p>NOT ADMIN</p>}
               </div>
             </div>
           ))}

@@ -1,7 +1,10 @@
+//third party imports
 import { React, useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
-import { useNavigate, Link, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
+
+//my components
 import NavBar from "../../components/NavBar/NavBar";
 import AddTicket from "../../components/AddTicket/AddTicket";
 import EditProject from "../../components/EditProject/EditProject";
@@ -71,59 +74,6 @@ const ProjectPage = (props) => {
     fetchProject();
   }, [requestReload]);
 
-  let table;
-  if (tickets.length) {
-    table = (
-      <table className="ticket-table">
-        <thead>
-          <tr>
-            <th>Ticket Name</th>
-            <th>Status</th>
-            <th>Priority</th>
-            <th>DatePosted</th>
-            <th>Author</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {tickets &&
-            tickets.map((ticket, i) => {
-              let completeStatus;
-              if (ticket.is_completed !== true) {
-                completeStatus = <td>Incomplete</td>;
-              } else {
-                completeStatus = <td>Complete</td>;
-              }
-              return (
-                <tr key={i} className="table-row">
-                  <td>{ticket.title}</td>
-                  <td>{completeStatus}</td>
-                  <td>{ticket.priority.title}</td>
-                  <td>{ticket.date_time_created}</td>
-                  <td>{ticket.author.username}</td>
-                  <Link
-                    key={i}
-                    to={`/inspectTicket/${ticket.id}/Projects.jsx`}
-                    style={{ textDecoration: "none", color: "black" }}
-                  >
-                    <div className="ticket-view-btn">
-                      <h3>VIEW</h3>
-                    </div>
-                  </Link>
-                </tr>
-              );
-            })}
-        </tbody>
-      </table>
-    );
-  } else {
-    table = (
-      <p>
-        Oops...this project has no tickets. You can be the first to post one.
-      </p>
-    );
-  }
-
   return (
     <div className="nav-project-tickets-container">
       <NavBar />
@@ -159,15 +109,15 @@ const ProjectPage = (props) => {
               <div className="project-auth-status-date-box">
                 <div className="author-info-box">
                   <p>AUTHOR</p>
-                  <h3>{author}</h3>
+                  <h2>{author}</h2>
                 </div>
                 <div className="info-box">
                   <p>STATUS</p>
-                  <h3 className={projectStatus}>{projectStatus}</h3>
+                  <h2 className={projectStatus}>{projectStatus}</h2>
                 </div>
                 <div className="info-box">
                   <p>POSTED</p>
-                  <h3>{project.date_created}</h3>
+                  <h2>{project.date_created}</h2>
                 </div>
               </div>
               <div className="project-description-box">
@@ -182,11 +132,56 @@ const ProjectPage = (props) => {
             />
           </div>
         )}
-        {table}
+        {tickets.length >= 1 ? (
+          <table className="ticket-table">
+            <thead>
+              <tr>
+                <th>Ticket Name</th>
+                <th>Status</th>
+                <th>Priority</th>
+                <th>DatePosted</th>
+                <th>Author</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {tickets &&
+                tickets.map((ticket, i) => {
+                  return (
+                    <tr key={i} className="table-row">
+                      <td>{ticket.title}</td>
+                      {ticket.is_completed ? (
+                        <td className="status">Complete</td>
+                      ) : (
+                        <td className="status">Incomplete</td>
+                      )}
+                      <td>{ticket.priority.title}</td>
+                      <td>{ticket.date_created}</td>
+                      <td>{ticket.author.username}</td>
+                      <Link
+                        key={i}
+                        to={`/inspectTicket/${ticket.id}/Projects.jsx`}
+                        style={{ textDecoration: "none", color: "black" }}
+                      >
+                        <div className="ticket-view-btn">
+                          <h3>VIEW</h3>
+                        </div>
+                      </Link>
+                    </tr>
+                  );
+                })}
+            </tbody>
+          </table>
+        ) : (
+          <div className="ticket-table">
+            <p>
+              This project has no tickets. You can be the first to post one.
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );
 };
 
 export default ProjectPage;
-// to={`/ticketPage/${ticket.id}`}

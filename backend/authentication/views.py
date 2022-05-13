@@ -25,7 +25,12 @@ class GetAllUsers(APIView, IsAuthenticated):
         serializer = UserSerializer(users, many=True)
         return Response(serializer.data)
 
-class PutIsStaff(APIView, IsAuthenticated):
+class IsStaff(APIView, IsAuthenticated):
+    def get(self, request, user_id):
+        user = User.objects.get(pk=user_id)
+        serializer = UserSerializer(user)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
     def put(self, request, user_id):
         user = User.objects.get(pk=user_id)
         serializer = UserSerializer(user, data=request.data)

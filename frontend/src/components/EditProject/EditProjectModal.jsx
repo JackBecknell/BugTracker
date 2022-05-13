@@ -30,8 +30,6 @@ function EditProjectModal(props) {
     }
   };
 
-  //DONT FORGET DATE RESOLVED!!!    date_time_resolved:
-  //upon user clicking submit this function formats newly updated data and passes it to axios request then closes the modal.
   function handleSubmit(event) {
     event.preventDefault();
     let updatedProject = {

@@ -7,7 +7,7 @@ function FilterTicketsByDateModal(props) {
   function handleSearch() {
     let returnArray = [];
     for (const [key, value] of Object.entries(props.tickets)) {
-      if (value["date_time_created"] === searchDate) {
+      if (value["date_created"] === searchDate) {
         returnArray.push(value);
       }
     }
