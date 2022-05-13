@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
-import { useNavigate, Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import NavBar from "../../components/NavBar/NavBar";
 import EditTicket from "../../components/EditTicket/EditTicket";
 import DeleteTicket from "../../components/DeleteTicket/DeleteTicket";
@@ -22,6 +22,7 @@ const InspectTicketPage = (props) => {
   const [commentText, setCommentText] = useState("");
   //holds conditional value for displaying comments
   const [displayComments, setDisplayComments] = useState(false);
+  const [comntTogglBtnTxt, setComntTogglBtnTxt] = useState("VIEW COMMENTS");
   //comments holds all comments returned by axios request
   const [comments, setComments] = useState([]);
   const [requestReload, setRequestReload] = useState(true);
@@ -100,72 +101,14 @@ const InspectTicketPage = (props) => {
     };
     postComment(newComment);
   }
-
-  let postCommentForm;
-  if (displayComments) {
-    postCommentForm = (
-      <div>
-        <form
-          onSubmit={handleSubmit}
-          onKeyPress={(e) => {
-            if (e.key === "Enter") {
-              let newComment = {
-                text: `${commentText}`,
-                user_id: user.id,
-                ticket_id: ticket.id,
-              };
-              postComment(newComment);
-            }
-          }}
-        >
-          <textarea
-            type="text"
-            placeholder="Type comment here..."
-            rows="4"
-            maxlength="1000"
-            className="auto_height"
-            value={commentText}
-            onChange={(event) => setCommentText(event.target.value)}
-          />
-          <button type="submit">POST</button>
-        </form>
-      </div>
-    );
-  } else {
-    postCommentForm = <div></div>;
-  }
-  //text that is desplayed in the button below create comment
-  let comntTogglBtnTxt = "VIEW COMMENTS";
-  //conditional value for conent rendered upon VIEW COMMENTS button being selected
-  let returnComments;
-  if (displayComments) {
-    if (comments.length >= 1) {
-      returnComments = (
-        <div className="comments-container">
-          {comments
-            .slice(0)
-            .reverse()
-            .map((comment, i) => (
-              <div key={i} className="comment-box">
-                <h4>{comment.user.username}</h4>
-                <div className="commenttext-container">
-                  <p>{comment.text}</p>
-                </div>
-              </div>
-            ))}
-        </div>
-      );
+  //"VIEW COMMENTS"comntTogglBtnTxt
+  function handleCommentsView() {
+    setDisplayComments(!displayComments);
+    if (comntTogglBtnTxt === "VIEW COMMENTS") {
+      setComntTogglBtnTxt("HIDE COMMENTS");
     } else {
-      returnComments = (
-        <p>
-          Oops...Looks like this ticket has no comments. You can be the first!
-        </p>
-      );
+      setComntTogglBtnTxt("VIEW COMMENTS");
     }
-    comntTogglBtnTxt = "HIDE COMMENTS";
-  } else {
-    returnComments = <div></div>;
-    comntTogglBtnTxt = "VIEW COMMENTS";
   }
 
   return (
@@ -200,31 +143,113 @@ const InspectTicketPage = (props) => {
               )}
             </div>
             <div className="ticket-info-container">
-              <p>author</p>
-              <h3>{ticket.author.username}</h3>
-              <p>priority</p>
-              <h3>{ticket.priority.title}</h3>
-              <p>type</p>
-              <h3>{ticket.type.title}</h3>
-              <p>posted</p>
-              <h3>{ticket.date_time_created}</h3>
-              <p>status</p>
-              <h3>{status}</h3>
-              <p>parent project</p>
-              <h3>{ticket.project.title}</h3>
-              <p>description</p>
-              <h3>{ticket.description}</h3>
+              <div className="ticket-info-half-box">
+                <div className="info-row">
+                  <div className="author-text">
+                    <p>AUTHOR</p>
+                    <h2>{ticket.author.username}</h2>
+                  </div>
+                  <div className={status}>
+                    <p>STATUS</p>
+                    <h2>{status}</h2>
+                  </div>
+                </div>
+                <div className="info-row border-bottom-top">
+                  <div>
+                    <p>PRIORITY</p>
+                    <h2>{ticket.priority.title}</h2>
+                  </div>
+                  <div>
+                    <p>TYPE</p>
+                    <h2>{ticket.type.title}</h2>
+                  </div>
+                </div>
+                <div className="info-column">
+                  <p>TICKET POSTED</p>
+                  <h3>{ticket.date_created}</h3>
+                  <p>PARENT PROJECT</p>
+                  <h3>{ticket.project.title}</h3>
+                </div>
+              </div>
+              <div className="ticket-info-half-box">
+                <div className="ticket-descrip-box">
+                  <p>DESCRIPTION</p>
+                  <h3>{ticket.description}</h3>
+                </div>
+              </div>
             </div>
             <div></div>
             <div className="viewComments-container">
-              <button
-                onClick={() => setDisplayComments(!displayComments)}
-                className="view-comments-btn"
-              >
-                {comntTogglBtnTxt}
-              </button>
-              <div>{postCommentForm}</div>
-              <div>{returnComments}</div>
+              <div className="toggle-txtarea-post">
+                <div>
+                  <button
+                    onClick={() => handleCommentsView()}
+                    className="view-comments-btn"
+                  >
+                    {comntTogglBtnTxt}
+                  </button>
+                </div>
+                {displayComments ? (
+                  <div className="txtarea-post">
+                    <form
+                      onSubmit={handleSubmit}
+                      onKeyPress={(e) => {
+                        if (e.key === "Enter") {
+                          let newComment = {
+                            text: `${commentText}`,
+                            user_id: user.id,
+                            ticket_id: ticket.id,
+                          };
+                          postComment(newComment);
+                        }
+                      }}
+                    >
+                      <textarea
+                        type="text"
+                        placeholder="Type comment here..."
+                        rows="4"
+                        maxlength="1000"
+                        className="auto_height"
+                        value={commentText}
+                        onChange={(event) => setCommentText(event.target.value)}
+                      />
+                      <button className="view-comments-btn" type="submit">
+                        POST
+                      </button>
+                    </form>
+                  </div>
+                ) : (
+                  <p></p>
+                )}
+              </div>
+              {displayComments ? (
+                <div>
+                  {comments.length >= 1 ? (
+                    <div className="comments-container">
+                      {comments
+                        .slice(0)
+                        .reverse()
+                        .map((comment, i) => (
+                          <div key={i} className="comment-box">
+                            <div>
+                              <h4>{comment.user.username}</h4>
+                            </div>
+                            <div className="commenttext-container">
+                              <p>{comment.text}</p>
+                            </div>
+                          </div>
+                        ))}
+                    </div>
+                  ) : (
+                    <p>
+                      Oops...Looks like this ticket has no comments. You can be
+                      the first!
+                    </p>
+                  )}
+                </div>
+              ) : (
+                <div></div>
+              )}
             </div>
           </div>
         )}

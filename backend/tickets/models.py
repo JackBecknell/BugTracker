@@ -5,7 +5,8 @@ from django.utils.timezone import now
 import datetime
 # Create your models here.
 
-
+# models for 'Type' and 'Priority' have their own tables and are their own model but work and act
+# as sub-classes for ticket which is why they do not have their own app.
 class Type(models.Model):
     title = models.CharField(max_length=25)
     is_bug = models.BooleanField(default=True)
@@ -18,8 +19,7 @@ class Ticket(models.Model):
     title = models.CharField(max_length=40)
     description = models.TextField(max_length=1250)
     is_completed = models.BooleanField(default=False)
-    date_time_created = models.DateField(default=datetime.date.today, editable=False)
-    date_time_resolved = models.DateTimeField(blank=True, null=True)
+    date_created = models.DateField(default=datetime.date.today, editable=False)
     priority = models.ForeignKey(Priority,  null=True , on_delete=models.SET_NULL)
     type = models.ForeignKey(Type,  null=True ,on_delete=models.SET_NULL)
 

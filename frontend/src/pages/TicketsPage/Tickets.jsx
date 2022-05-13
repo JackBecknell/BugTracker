@@ -1,8 +1,9 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
+
 import "./TicketsStyles.css";
 import NavBar from "../../components/NavBar/NavBar";
 import FilterTickets from "../../components/FilterTickets/FilterTickets";
@@ -44,62 +45,6 @@ const TicketsPage = (props) => {
     }
   }, [reloadConditions]);
 
-  let table;
-  if (tickets.length) {
-    table = (
-      <div className="ticket-table">
-        <table className="ticket-table">
-          <thead>
-            <tr>
-              <th>Ticket Name</th>
-              <th>Status</th>
-              <th>Priority</th>
-              <th>DatePosted</th>
-              <th>Author</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {tickets &&
-              tickets.map((ticket, i) => {
-                let completeStatus;
-                if (ticket.is_completed !== true) {
-                  completeStatus = <td className="status">Incomplete</td>;
-                } else {
-                  completeStatus = <td className="status">Complete</td>;
-                }
-                return (
-                  <tr key={i} className="table-row">
-                    <td>{ticket.title}</td>
-                    <td>{completeStatus}</td>
-                    <td>{ticket.priority.title}</td>
-                    <td>{ticket.date_time_created}</td>
-                    <td>{ticket.author.username}</td>
-                    <Link
-                      key={i}
-                      to={`/inspectTicket/${ticket.id}/Tickets.jsx`}
-                      style={{ textDecoration: "none", color: "black" }}
-                    >
-                      <div className="ticket-view-btn">
-                        <h3>VIEW</h3>
-                      </div>
-                    </Link>
-                  </tr>
-                );
-              })}
-          </tbody>
-        </table>
-      </div>
-    );
-  } else {
-    table = (
-      <p>
-        Oops...Our database doesn't seem to have any tickets. You can be the
-        first to post one!
-      </p>
-    );
-  }
-
   return (
     <div className="nav-tickets-container">
       <NavBar />
@@ -117,7 +62,54 @@ const TicketsPage = (props) => {
             <button onClick={handleTicketsMap}>{dateSwitchText}</button>
           </div>
         </div>
-        {table}
+        {tickets.length >= 1 ? (
+          <div className="ticket-table">
+            <table className="ticket-table">
+              <thead>
+                <tr>
+                  <th>Ticket Name</th>
+                  <th>Status</th>
+                  <th>Priority</th>
+                  <th>DatePosted</th>
+                  <th>Author</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {tickets &&
+                  tickets.map((ticket, i) => {
+                    return (
+                      <tr key={i} className="table-row">
+                        <td>{ticket.title}</td>
+                        {ticket.is_completed ? (
+                          <td className="status">Complete</td>
+                        ) : (
+                          <td className="status">Incomplete</td>
+                        )}
+                        <td>{ticket.priority.title}</td>
+                        <td>{ticket.date_created}</td>
+                        <td>{ticket.author.username}</td>
+                        <Link
+                          key={i}
+                          to={`/inspectTicket/${ticket.id}/Tickets.jsx`}
+                          style={{ textDecoration: "none", color: "black" }}
+                        >
+                          <div className="ticket-view-btn">
+                            <h3>VIEW</h3>
+                          </div>
+                        </Link>
+                      </tr>
+                    );
+                  })}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <p>
+            Our database doesn't seem to have any tickets. You can be the first
+            to post one!
+          </p>
+        )}
       </div>
     </div>
   );

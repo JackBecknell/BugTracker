@@ -2,10 +2,18 @@
   display: table-cell;
   min-width: fit-content;
   height: fit-content;
-  background-color: rgb(0, 0, 0);
-  color: rgb(177, 177, 177);
+  background: linear-gradient(
+    to right top,
+    #8b22db,
+    #a32fdd,
+    #b63cd8,
+    #cc4fdd,
+    #e45fe4
+  );
+  color: rgb(0, 0, 0);
   padding: 6px;
   margin-top: 0%;
+  margin-bottom: 8rem;
   text-align: center;
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;

@@ -33,7 +33,7 @@ class TicketSerializer(serializers.ModelSerializer):
     class Meta:
         model = Ticket
         fields = ['id', 'assigned_to', 'title', 'description',
-        'is_completed', 'date_time_created', 'date_time_resolved',
+        'is_completed', 'date_created',
         'project', 'project_id', 'author', 'author_id', 'priority', 
         'priority_id', 'type', 'type_id']
         depth = 1

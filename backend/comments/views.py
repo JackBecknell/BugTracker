@@ -14,7 +14,6 @@ class CommentAuthList(APIView, IsAuthenticated):
         comments = Comments.objects.filter(ticket_id=ticket_id)
         serializer = CommentSerializer(comments, many=True)
         return Response(serializer.data)
-
 class CommentAuthDetail(APIView, IsAuthenticated):
     def post(self, request):
         serializer = CommentSerializer(data=request.data)

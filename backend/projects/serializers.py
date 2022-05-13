@@ -13,7 +13,7 @@ class ProjectSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Project
-        fields = ['id', 'title', 'description', 'date_created', 'date_time_resolved', 'is_completed', 'team', 'project_author', 'project_author_id']
+        fields = ['id', 'title', 'description', 'date_created', 'is_completed', 'team', 'project_author', 'project_author_id']
         depth = 1
     project_author_id = serializers.IntegerField(write_only=True)
 

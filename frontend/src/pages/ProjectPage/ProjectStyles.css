@@ -8,8 +8,15 @@
   display: table-cell;
   min-width: fit-content;
   height: fit-content;
-  background-color: rgb(0, 0, 0);
-  color: rgb(177, 177, 177);
+  color: rgb(0, 0, 0);
+  background: linear-gradient(
+    to right top,
+    #0063be,
+    #0084ff,
+    #1f93ff,
+    #309bff,
+    #3ca1ff
+  );
   padding: 6px;
   margin-top: 0%;
   text-align: center;
@@ -54,7 +61,7 @@
   margin-right: auto;
 }
 
-.author-info-box h3 {
+.author-info-box h2 {
   color: #006b9c;
 }
 
