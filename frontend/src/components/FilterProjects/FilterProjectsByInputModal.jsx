@@ -29,8 +29,7 @@ function FilterProjectsByInputModal(props) {
     for (const [key, value] of Object.entries(props.projects)) {
       let dbCheckValue = value[props.filterBy[0]].toLowerCase();
       let userInputValue = searchTerm.toLowerCase();
-      console.log(dbCheckValue + " " + userInputValue);
-      if (value[props.filterBy[0]].includes(searchTerm)) {
+      if (dbCheckValue.includes(userInputValue)) {
         returnArray.push(value);
       }
     }
