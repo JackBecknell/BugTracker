@@ -58,6 +58,9 @@ const AdminPage = (props) => {
       let projectResponse;
       let ticketsResponse;
       let usersResponse;
+      setProjectsUserInput("");
+      setTicketsUserInput("");
+      setUsersUserInput("");
       try {
         projectResponse = await axios.get(
           "http://127.0.0.1:8000/api/projects/",
@@ -200,7 +203,7 @@ const AdminPage = (props) => {
                 </button>
                 {deleteProjectModalStatus && (
                   <DeleteProjectModal
-                    project={project}
+                    project={deleteValue}
                     setModalStatus={setDeleteProjectModalStatus}
                     reloadPage={setRequestReload}
                     reloadCondition={requestReload}
@@ -262,7 +265,7 @@ const AdminPage = (props) => {
                 </button>
                 {deleteTicketModalStatus && (
                   <DeleteModal
-                    ticket={ticket}
+                    ticket={deleteValue}
                     setModalStatus={setDeleteTicketModalStatus}
                     reloadPage={setRequestReload}
                     reloadCondition={requestReload}

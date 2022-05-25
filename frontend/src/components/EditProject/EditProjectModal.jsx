@@ -68,7 +68,7 @@ function EditProjectModal(props) {
           <input
             rows="1"
             className="auto_height"
-            maxlength="40"
+            maxlength="30"
             type="text"
             value={projectTitle}
             onChange={(event) => setProjectTitle(event.target.value)}

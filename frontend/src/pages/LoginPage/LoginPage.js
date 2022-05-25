@@ -38,7 +38,7 @@ const LoginPage = () => {
             <label>
               <h3>PASSWORD</h3>
               <input
-                type="text"
+                type="password"
                 name="password"
                 value={formData.password}
                 onChange={handleInputChange}

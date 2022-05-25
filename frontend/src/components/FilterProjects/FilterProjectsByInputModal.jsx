@@ -7,7 +7,10 @@ function FilterProjectsByInputModal(props) {
   function handleMultipleValues() {
     let returnArray = [];
     for (const [key, value] of Object.entries(props.projects)) {
-      if (value[props.filterBy[0]][props.filterBy[1]].includes(searchTerm)) {
+      let dbCheckValue =
+        value[props.filterBy[0]][props.filterBy[1]].toLowerCase();
+      let userInputValue = searchTerm.toLowerCase();
+      if (dbCheckValue.includes(userInputValue)) {
         returnArray.push(value);
       }
     }
@@ -24,6 +27,9 @@ function FilterProjectsByInputModal(props) {
   function handleOneValue() {
     let returnArray = [];
     for (const [key, value] of Object.entries(props.projects)) {
+      let dbCheckValue = value[props.filterBy[0]].toLowerCase();
+      let userInputValue = searchTerm.toLowerCase();
+      console.log(dbCheckValue + " " + userInputValue);
       if (value[props.filterBy[0]].includes(searchTerm)) {
         returnArray.push(value);
       }
@@ -61,7 +67,7 @@ function FilterProjectsByInputModal(props) {
       props.setProjects(returnArray);
     } else {
       alert(
-        `Sorry, looks like none of our tickets have a status of ${searchTerm}`
+        `Sorry, looks like none of our projects have a status of ${searchTerm}`
       );
     }
   }
